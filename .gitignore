@@ -1,0 +1,17 @@
+*.pyc
+*.pyo
+*.egg
+.installed.cfg
+.idea
+.tox
+bin
+develop-eggs
+dist
+downloads
+eggs
+parts
+*.egg-info
+*/example_project.db
+venv
+build
+docs/_build

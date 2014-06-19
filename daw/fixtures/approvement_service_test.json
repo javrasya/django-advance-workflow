@@ -1,0 +1,333 @@
+[
+    {
+        "pk": 1001,
+        "model": "auth.Permission",
+        "fields": {
+            "name": "permission_1",
+            "content_type": 1,
+            "codename": "1"
+        }
+    },
+    {
+        "pk": 1002,
+        "model": "auth.Permission",
+        "fields": {
+            "name": "permission_2",
+            "content_type": 1,
+            "codename": "2"
+        }
+    },
+    {
+        "pk": 1003,
+        "model": "auth.Permission",
+        "fields": {
+            "name": "permission_3",
+            "content_type": 1,
+            "codename": "3"
+        }
+    },
+    {
+        "pk": 1004,
+        "model": "auth.Permission",
+        "fields": {
+            "name": "permission_4",
+            "content_type": 1,
+            "codename": "4"
+        }
+    },
+    {
+        "pk": 2001,
+        "model": "auth.User",
+        "fields": {
+            "first_name": "testUser1",
+            "last_name": "testUser2",
+            "username": "testUser1",
+            "email": "testUser1@test.com",
+            "is_active": "True",
+            "is_superuser": "False",
+            "password": "pbkdf2_sha256$10000$x2zoxc1M3xus$8vAy+R/vLUwqmJhWuxo//Eu7guuujd3BbPlD5WwnbEQ=",
+            "user_permissions": [1001]
+        }
+    },
+    {
+        "pk": 2002,
+        "model": "auth.User",
+        "fields": {
+            "first_name": "testUser2",
+            "last_name": "testUser2",
+            "username": "testUser2",
+            "email": "testUser2@test.com",
+            "is_active": "True",
+            "is_superuser": "False",
+            "password": "pbkdf2_sha256$10000$x2zoxc1M3xus$8vAy+R/vLUwqmJhWuxo//Eu7guuujd3BbPlD5WwnbEQ=",
+            "user_permissions": [1002]
+
+        }
+    },
+    {
+        "pk": 2003,
+        "model": "auth.User",
+        "fields": {
+            "first_name": "testUser3",
+            "last_name": "testUser3",
+            "username": "testUser3",
+            "email": "testUser3@test.com",
+            "is_active": "True",
+            "is_superuser": "False",
+            "password": "pbkdf2_sha256$10000$x2zoxc1M3xus$8vAy+R/vLUwqmJhWuxo//Eu7guuujd3BbPlD5WwnbEQ=",
+            "user_permissions": [1003]
+
+        }
+    },
+    {
+        "pk": 2004,
+        "model": "auth.User",
+        "fields": {
+            "first_name": "testUser4",
+            "last_name": "testUser4",
+            "username": "testUser4",
+            "email": "testUser4@test.com",
+            "is_active": "True",
+            "is_superuser": "False",
+            "password": "pbkdf2_sha256$10000$x2zoxc1M3xus$8vAy+R/vLUwqmJhWuxo//Eu7guuujd3BbPlD5WwnbEQ=",
+            "user_permissions": [1004]
+
+        }
+    },
+    {
+        "pk": 3001,
+        "model": "daw.State",
+        "fields": {
+            "label": "s1"
+        }
+    },
+    {
+        "pk": 3002,
+        "model": "daw.State",
+        "fields": {
+            "label": "s2"
+        }
+    },
+    {
+        "pk": 3003,
+        "model": "daw.State",
+        "fields": {
+            "label": "s3"
+        }
+    },
+    {
+        "pk": 3004,
+        "model": "daw.State",
+        "fields": {
+            "label": "s4"
+        }
+    },
+    {
+        "pk": 3005,
+        "model": "daw.State",
+        "fields": {
+            "label": "s5"
+        }
+    },
+    {
+        "pk": 3006,
+        "model": "daw.State",
+        "fields": {
+            "label": "s4.1"
+        }
+    },
+    {
+        "pk": 3007,
+        "model": "daw.State",
+        "fields": {
+            "label": "s4.2"
+        }
+    },
+    {
+        "pk": 3008,
+        "model": "daw.State",
+        "fields": {
+            "label": "s5.1"
+        }
+    },
+    {
+        "pk": 3009,
+        "model": "daw.State",
+        "fields": {
+            "label": "s5.2"
+        }
+    },
+    {
+        "pk": 4001,
+        "model": "daw.Transition",
+        "fields": {
+            "content_type": 11,
+            "source_state": 3001,
+            "destination_state": 3002
+        }
+    },
+    {
+        "pk": 4002,
+        "model": "daw.Transition",
+        "fields": {
+            "content_type": 11,
+            "source_state": 3002,
+            "destination_state": 3003
+        }
+    },
+    {
+        "pk": 4003,
+        "model": "daw.Transition",
+        "fields": {
+            "content_type": 11,
+            "source_state": 3003,
+            "destination_state": 3004
+        }
+    },
+    {
+        "pk": 4004,
+        "model": "daw.Transition",
+        "fields": {
+            "content_type": 11,
+            "source_state": 3003,
+            "destination_state": 3005
+        }
+    },
+
+    {
+        "pk": 4005,
+        "model": "daw.Transition",
+        "fields": {
+            "content_type": 11,
+            "source_state": 3004,
+            "destination_state": 3006
+        }
+    },
+    {
+        "pk": 4006,
+        "model": "daw.Transition",
+        "fields": {
+            "content_type": 11,
+            "source_state": 3004,
+            "destination_state": 3007
+        }
+    },
+    {
+        "pk": 4007,
+        "model": "daw.Transition",
+        "fields": {
+            "content_type": 11,
+            "source_state": 3005,
+            "destination_state": 3008
+        }
+    },
+    {
+        "pk": 4008,
+        "model": "daw.Transition",
+        "fields": {
+            "content_type": 11,
+            "source_state": 3004,
+            "destination_state": 3009
+        }
+    },
+    {
+        "pk": 6001,
+        "model": "daw.TransitionApproveDefinition",
+        "fields": {
+            "transition": 4001,
+            "permission": 1001,
+            "order": 0
+
+        }
+    },
+    {
+        "pk": 6002,
+        "model": "daw.TransitionApproveDefinition",
+        "fields": {
+            "transition": 4002,
+            "permission": 1002,
+            "order": 0
+
+        }
+    },
+    {
+        "pk": 6003,
+        "model": "daw.TransitionApproveDefinition",
+        "fields": {
+            "transition": 4002,
+            "permission": 1003,
+            "order": 1
+        }
+    },
+    {
+        "pk": 6004,
+        "model": "daw.TransitionApproveDefinition",
+        "fields": {
+            "transition": 4003,
+            "permission": 1004,
+            "order": 0
+        }
+    },
+    {
+        "pk": 6005,
+        "model": "daw.TransitionApproveDefinition",
+        "fields": {
+            "transition": 4004,
+            "permission": 1004,
+            "order": 0
+        }
+    }    ,
+
+    {
+        "pk": 6006,
+        "model": "daw.TransitionApproveDefinition",
+        "fields": {
+            "transition": 4005,
+            "permission": 1004,
+            "order": 0
+        }
+    }    ,
+    {
+        "pk": 6007,
+        "model": "daw.TransitionApproveDefinition",
+        "fields": {
+            "transition": 4006,
+            "permission": 1004,
+            "order": 0
+        }
+    }    ,
+    {
+        "pk": 6008,
+        "model": "daw.TransitionApproveDefinition",
+        "fields": {
+            "transition": 4007,
+            "permission": 1004,
+            "order": 0
+        }
+    }    ,
+    {
+        "pk": 6009,
+        "model": "daw.TransitionApproveDefinition",
+        "fields": {
+            "transition": 4008,
+            "permission": 1004,
+            "order": 0
+        }
+    }    ,
+    {
+        "pk": 5001,
+        "model": "tests.TestModel",
+        "fields": {
+            "test_field": 3001
+        }
+    },
+    {
+        "pk": 5002,
+        "model": "tests.TestModel",
+        "fields": {
+            "test_field": 3001
+        }
+    }
+
+
+]
