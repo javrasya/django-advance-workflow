@@ -2,21 +2,22 @@ __author__ = 'ahmetdal'
 
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
+
 from django.db.models.signals import post_save, pre_save
 
-from daw.models import TransitionApprovement
+from daw.models import TransitionApprovement, State
 from daw.service.approvement_service import ApprovementService
 
 
 class StateField(models.ForeignKey):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, state_model=State, *args, **kwargs):
         kwargs['null'] = True
         kwargs['blank'] = True
-        super(StateField, self).__init__(*args, **kwargs)
+        super(StateField, self).__init__(state_model, *args, **kwargs)
 
 
     def contribute_to_class(self, cls, name, virtual_only=False):
-        self.base_cls = cls
+        self.model = cls
 
         super(StateField, self).contribute_to_class(cls, name, virtual_only=virtual_only)
 

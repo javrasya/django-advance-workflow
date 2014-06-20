@@ -11,4 +11,4 @@ class TestModel(models.Model):
         db_table = "test_model"
         app_label = "tests"
 
-    test_field = StateField(State)
+    test_field = StateField()
