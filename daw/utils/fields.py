@@ -21,8 +21,8 @@ class StateField(models.ForeignKey):
 
         super(StateField, self).contribute_to_class(cls, name, virtual_only=virtual_only)
 
-        pre_save.connect(self._pre_save, cls, True)
-        post_save.connect(self._post_save, cls, True)
+        pre_save.connect(self._pre_save, cls, False)
+        post_save.connect(self._post_save, cls, False)
 
 
     def _pre_save(self, **kwargs):  # signal, sender, instance):
@@ -34,7 +34,7 @@ class StateField(models.ForeignKey):
         from daw.service.state_service import StateService
 
         instance = kwargs['instance']
-        if not instance.pk:
+        if self.model.objects.filter(pk=instance.pk).count() == 0:
             initial_state = StateService.get_init_state(ContentType.objects.get_for_model(instance))
             self.set_state(instance, initial_state)
 
@@ -54,5 +54,5 @@ class StateField(models.ForeignKey):
         return instance.__dict__[self.attname]
 
     def set_state(self, instance, state):
-        instance.__dict__[self.attname] = self.to_python(state)
+        instance.__dict__[self.attname] = state.pk
 

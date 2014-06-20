@@ -19,10 +19,6 @@ class TransitionApproveDefinition(models.Model):
     permission = models.ForeignKey(Permission, verbose_name=_('Permission'))
     order = models.IntegerField(default=0, verbose_name=_('Order'))
 
-    def save(self, *args, **kwargs):
-        max_order = TransitionApproveDefinition.objects.latest('order').order
-        self.order = max_order + 1
-        super(TransitionApproveDefinition, self).save(*args, **kwargs)
 
 
 

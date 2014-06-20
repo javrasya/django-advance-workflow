@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">{% trans "On Approval" %} {{ cls_meta.verbose_name_plural }}</div>
+
+        <!-- Table -->
+        <table class="table">
+            <thead>
+            <tr>
+                {% for list_display in list_displays %}
+                    <th scope="col">
+                        {{ list_display }}
+                    </th>
+                {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for values in objects %}
+                <tr>
+
+                    {% for value in values %}
+                        <td scope="col">
+                            {{ value }}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

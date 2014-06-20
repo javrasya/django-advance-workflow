@@ -1,0 +1,59 @@
+{% load i18n admin_urls process_buttons %}
+
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">{% trans "On Approval" %} {{ cls_meta.verbose_name_plural }}</div>
+
+    <!-- Table -->
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">
+                Field 1
+            </th>
+            <th scope="col">
+                Field 2
+            </th>
+            <th scope="col">
+                Field 3
+            </th>
+            <th scope="col">
+                Field 4
+            </th>
+            <th scope="col">
+                State
+            </th>
+            <th scope="col">
+                Operations
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for obj in objects %}
+            <tr>
+                <td scope="col">
+                    {{ obj.field1 }}
+                </td>
+                <td scope="col">
+                    {{ obj.field2 }}
+                </td>
+                <td scope="col">
+                    {{ obj.field3 }}
+                </td>
+                <td scope="col">
+                    {{ obj.field4 }}
+                </td>
+                <td scope="col">
+                    {{ obj.state }}
+                </td>
+                <td>{% daw_process_buttons obj.pk cls state_field %}
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+
+
+
