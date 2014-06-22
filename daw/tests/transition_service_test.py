@@ -26,7 +26,7 @@ class TransitionServiceTest(BaseTestCase):
         obj = TestModel.objects.get(pk=5001)
 
         try:
-            TransitionService.approve_transition(obj, 'test_field')
+            TransitionService._approve_transition(obj, 'test_field')
             self.fail('Exception was expected')
         except Exception, e:
             self.assertEqual(e.message, 'There is no available state for destination for the user.')
@@ -46,7 +46,7 @@ class TransitionServiceTest(BaseTestCase):
         obj = TestModel.objects.get(pk=5001)
 
         try:
-            TransitionService.approve_transition(obj, 'test_field')
+            TransitionService._approve_transition(obj, 'test_field')
             self.fail('Exception was expected')
         except Exception, e:
             self.assertEqual(e.message, 'There is no available state for destination for the user.')
@@ -66,7 +66,7 @@ class TransitionServiceTest(BaseTestCase):
         obj = TestModel.objects.get(pk=5001)
 
         try:
-            TransitionService.approve_transition(obj, 'test_field')
+            TransitionService._approve_transition(obj, 'test_field')
             self.fail('Exception was expected')
         except Exception, e:
             self.assertEqual(e.message, 'There is no available state for destination for the user.')
@@ -86,7 +86,7 @@ class TransitionServiceTest(BaseTestCase):
 
         self.assertEqual(State.objects.get(label='s1'), obj.test_field)
 
-        TransitionService.approve_transition(obj, 'test_field')
+        TransitionService._approve_transition(obj, 'test_field')
 
         obj = TestModel.objects.get(pk=5001)
         self.assertEqual(State.objects.get(label='s2'), obj.test_field)
@@ -104,7 +104,7 @@ class TransitionServiceTest(BaseTestCase):
         self.assertIsNotNone(approvements[0].transaction_date)
 
         try:
-            TransitionService.approve_transition(obj, 'test_field')
+            TransitionService._approve_transition(obj, 'test_field')
             self.fail('Exception was expected')
         except Exception, e:
             self.assertEqual(e.message, 'There is no available state for destination for the user.')
@@ -119,7 +119,7 @@ class TransitionServiceTest(BaseTestCase):
         middleware.get_user = MagicMock(return_value=User.objects.get(pk=2001))
         obj = TestModel.objects.get(pk=5001)
         try:
-            TransitionService.approve_transition(obj, 'test_field')
+            TransitionService._approve_transition(obj, 'test_field')
             self.fail('Exception was expected')
         except Exception, e:
             self.assertEqual(e.message, 'There is no available state for destination for the user.')
@@ -128,7 +128,7 @@ class TransitionServiceTest(BaseTestCase):
         middleware.get_user = MagicMock(return_value=User.objects.get(pk=2004))
         obj = TestModel.objects.get(pk=5001)
         try:
-            TransitionService.approve_transition(obj, 'test_field')
+            TransitionService._approve_transition(obj, 'test_field')
             self.fail('Exception was expected')
         except Exception, e:
             self.assertEqual(e.message, 'There is no available state for destination for the user.')
@@ -137,7 +137,7 @@ class TransitionServiceTest(BaseTestCase):
         middleware.get_user = MagicMock(return_value=User.objects.get(pk=2003))
         obj = TestModel.objects.get(pk=5001)
         try:
-            TransitionService.approve_transition(obj, 'test_field')
+            TransitionService._approve_transition(obj, 'test_field')
             self.fail('Exception was expected')
         except Exception, e:
             self.assertEqual(e.message, 'There is no available state for destination for the user.')
@@ -149,7 +149,7 @@ class TransitionServiceTest(BaseTestCase):
 
         self.assertEqual(State.objects.get(label='s2'), obj.test_field)
 
-        TransitionService.approve_transition(obj, 'test_field')
+        TransitionService._approve_transition(obj, 'test_field')
 
         obj = TestModel.objects.get(pk=5001)
         self.assertEqual(State.objects.get(label='s2'), obj.test_field)
@@ -167,7 +167,7 @@ class TransitionServiceTest(BaseTestCase):
         self.assertIsNotNone(approvements[0].transaction_date)
 
         try:
-            TransitionService.approve_transition(obj, 'test_field')
+            TransitionService._approve_transition(obj, 'test_field')
             self.fail('Exception was expected')
         except Exception, e:
             self.assertEqual(e.message, 'There is no available state for destination for the user.')
@@ -177,7 +177,7 @@ class TransitionServiceTest(BaseTestCase):
 
         self.assertEqual(State.objects.get(label='s2'), obj.test_field)
 
-        TransitionService.approve_transition(obj, 'test_field')
+        TransitionService._approve_transition(obj, 'test_field')
 
         obj = TestModel.objects.get(pk=5001)
         self.assertEqual(State.objects.get(label='s3'), obj.test_field)
@@ -198,7 +198,7 @@ class TransitionServiceTest(BaseTestCase):
         self.assertIsNotNone(approvements[1].transaction_date)
 
         try:
-            TransitionService.approve_transition(obj, 'test_field')
+            TransitionService._approve_transition(obj, 'test_field')
             self.fail('Exception was expected')
         except Exception, e:
             self.assertEqual(e.message, 'There is no available state for destination for the user.')
@@ -214,7 +214,7 @@ class TransitionServiceTest(BaseTestCase):
         middleware.get_user = MagicMock(return_value=User.objects.get(pk=2001))
         obj = TestModel.objects.get(pk=5001)
         try:
-            TransitionService.approve_transition(obj, 'test_field')
+            TransitionService._approve_transition(obj, 'test_field')
             self.fail('Exception was expected')
         except Exception, e:
             self.assertEqual(e.message, 'There is no available state for destination for the user.')
@@ -223,7 +223,7 @@ class TransitionServiceTest(BaseTestCase):
         middleware.get_user = MagicMock(return_value=User.objects.get(pk=2002))
         obj = TestModel.objects.get(pk=5001)
         try:
-            TransitionService.approve_transition(obj, 'test_field')
+            TransitionService._approve_transition(obj, 'test_field')
             self.fail('Exception was expected')
         except Exception, e:
             self.assertEqual(e.message, 'There is no available state for destination for the user.')
@@ -232,7 +232,7 @@ class TransitionServiceTest(BaseTestCase):
         middleware.get_user = MagicMock(return_value=User.objects.get(pk=2003))
         obj = TestModel.objects.get(pk=5001)
         try:
-            TransitionService.approve_transition(obj, 'test_field')
+            TransitionService._approve_transition(obj, 'test_field')
             self.fail('Exception was expected')
         except Exception, e:
             self.assertEqual(e.message, 'There is no available state for destination for the user.')
@@ -242,7 +242,7 @@ class TransitionServiceTest(BaseTestCase):
         middleware.get_user = MagicMock(return_value=User.objects.get(pk=2004))
         obj = TestModel.objects.get(pk=5001)
         try:
-            TransitionService.approve_transition(obj, 'test_field')
+            TransitionService._approve_transition(obj, 'test_field')
             self.fail('Exception was expected')
         except Exception, e:
             self.assertEqual(e.message, 'State must be given when there are multiple states for destination')
@@ -252,7 +252,7 @@ class TransitionServiceTest(BaseTestCase):
         middleware.get_user = MagicMock(return_value=User.objects.get(pk=2004))
         obj = TestModel.objects.get(pk=5001)
         try:
-            TransitionService.approve_transition(obj, 'test_field', state=State.objects.get(label='s3'))
+            TransitionService._approve_transition(obj, 'test_field', state=State.objects.get(label='s3'))
             self.fail('Exception was expected')
         except Exception, e:
             self.assertEqual(e.message,
@@ -267,7 +267,7 @@ class TransitionServiceTest(BaseTestCase):
         obj = TestModel.objects.get(pk=5001)
         self.assertEqual(State.objects.get(label='s3'), obj.test_field)
 
-        TransitionService.approve_transition(obj, 'test_field', state=State.objects.get(label='s5'))
+        TransitionService._approve_transition(obj, 'test_field', state=State.objects.get(label='s5'))
 
         obj = TestModel.objects.get(pk=5001)
         self.assertEqual(State.objects.get(label='s5'), obj.test_field)

@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+    <div class="modal fade" id="idDawAreYouSure">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">{% trans "Confirmation" %}</h4>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "No" %}</button>
+                    <button id="idYesSure" type="button" class="btn btn-primary">{% trans "Yes" %}</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <div class="modal fade" id="idDawSelectAvailableState">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">{% trans "Choose Next State" %}</h4>
+                </div>
+                <div class="modal-body">
+                    <label for="idDawNextStateSelector">{% trans "Next State" %}:</label>
+                    <select id="idDawNextStateSelector" class="dawNextStateSelector">
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Cancel" %}</button>
+                    <button type="button" class="btn btn-primary" id="idDawNextStateApplier">{% trans "Apply Next State" %}</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <script>
+        $(function () {
+            function fillSelectingNextStateModal(pk) {
+                var nS = nextStates[pk]
+                var select = $('#idDawNextStateSelector');
+                select.find('option').remove()
+                $.each(nS, function (i, e) {
+                    var option = $('<option>', {value: e[0], text: e[1]})
+                    option.appendTo(select)
+                })
+            }
+
+            function setIdAreYouSureModalText(nextState) {
+                var text = "{% blocktrans %}Object state will be changed to "+nextState+". Are you sure?{% endblocktrans %}"
+                $('#idDawAreYouSure').find('.modal-body').text(text)
+            }
+
+            $('.dawApproveNextState').click(function () {
+                var pk = $(this).data('id')
+                nS = nextStates[pk]
+                var modalId;
+
+                if (nS.length == 0) {
+                    alert("{% trans 'No available approvement exists.'%}")
+                }
+                else if (nS.length == 1) {
+                    setIdAreYouSureModalText(nS[0][1])
+                    modalId = '#idDawAreYouSure'
+                    $(modalId).attr('data-state_id', nS[0][0])
+
+                }
+                else {
+                    fillSelectingNextStateModal(pk)
+                    modalId = '#idDawSelectAvailableState'
+                }
+
+                if (modalId) {
+                    $(modalId).attr('data-id', pk)
+                    $(modalId).modal('show')
+                }
+            })
+
+            $('#idDawNextStateApplier').click(function () {
+
+                var select = $('#idDawNextStateSelector');
+                var selectedOption = select.find('option:selected');
+                var text = selectedOption.text();
+                var value = selectedOption.val();
+
+                var currentModal = $('#idDawSelectAvailableState');
+                var areYouSureModal = $('#idDawAreYouSure');
+
+
+                areYouSureModal.attr('data-id', currentModal.attr('data-id'));
+                areYouSureModal.attr('data-state_id', value);
+                currentModal.modal('hide')
+                setIdAreYouSureModalText(text)
+                areYouSureModal.modal('show')
+
+
+            })
+
+            $('#idYesSure').click(function () {
+                var obj_pk = $('#idDawAreYouSure').data('id')
+                var next_state_id = $('#idDawAreYouSure').data('state_id')
+                if (next_state_id) {
+                    next_state_id = '/' + next_state_id
+                }
+                else {
+                    next_state_id = ''
+                }
+                var approveUri = "{% url 'daw.views.approve_transition_view' content_type_id 'arg2' state_field request.build_absolute_uri|urlencode:"" 'arg5' %}".replace(/arg2/, obj_pk).replace(/\/arg5/, next_state_id);
+
+                window.location = approveUri
+            })
+
+        })
+
+    </script>
+
+{% endblock %}
+

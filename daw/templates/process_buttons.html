@@ -10,113 +10,11 @@
             {% for approvement in approvements %}
                 nextStates[{{ obj_pk }}].push([{{ approvement.approve_definition.transition.destination_state.pk }}, "{{ approvement.approve_definition.transition.destination_state.label }}"])
             {% endfor %}
-            if (!$('#idAreYouSure').length) {
-                var modal = $('<div>', {class: 'modal fade', id: 'idAreYouSure' });
-
-                var modalDialog = $('<div>', {class: 'modal-dialog' });
-                var modalContent = $('<div>', {class: 'modal-content' });
-                var modalHeader = $('<div>', {class: 'modal-header' });
-                var modalBody = $('<div>', {class: 'modal-body' });
-                var modalFooter = $('<div>', {class: 'modal-footer' });
-
-
-                modalHeader.appendTo(modalContent)
-                modalBody.appendTo(modalContent)
-                modalFooter.appendTo(modalContent)
-                modalDialog.appendTo(modal)
-                modalContent.appendTo(modal)
-                modal.appendTo($('body').find('div.panel'))
-
-
-                var closeButton = $('<button>', {class: 'close', 'data-dismiss': 'idAreYouSure', 'aria-hidden': "true", text: '{% trans "Close" %}'})
-                var title = $('<h4>', {class: 'modal-title', text: '{% trans "Confirmation" %}'})
-
-                closeButton.appendTo(modalHeader)
-                title.appendTo(modalHeader)
-
-                var noButton = $('<button>', {class: 'btn btn-default', 'data-dismiss': 'idAreYouSure', 'aria-hidden': "true", text: '{% trans "No" %}'})
-                var yesButton = $('<button>', {class: 'btn btn-primary', 'aria-hidden': "true", text: '{% trans "Yes" %}'})
-
-                noButton.appendTo(modalFooter)
-                yesButton.appendTo(modalFooter)
-
-            }
-            $('.approveNextState').click(function () {
-                var pk = $(this).data('id')
-                nS = nextStates[pk]
-                setIdAreYouSureModalText(nS[0][1])
-                $('#idAreYouSure').attr('data_id', pk)
-                $('#idAreYouSure').modal('show')
-            })
-
-            function setIdAreYouSureModalText(nextState) {
-                var text = "{% blocktrans %}Object state will be changed to "+nextState+". Are you sure?{% endblocktrans %}"
-                $('#idAreYouSure').find('.modal-body').text(text)
-            }
-
-
-            $('button[data-dismiss]').click(function () {
-                id = $(this).data('dismiss')
-                $('#' + id).modal('hide')
-            })
         })
 
     </script>
-
-
-
-    <a data-id="{{ obj_pk }}" title="{% trans "Next State" %}" class="btn btn-primary approveNextState" href="#">{% trans "Next State" %}</a>
-
-
-    {% if approvements.count > 1 %}
-        <script>
-            $(function () {
-                if (!$('#idSelectAvailableState').length) {
-                    var modal = $('<div>', {class: 'modal fade', id: 'idSelectAvailableState' });
-                    var modalDialog = $('<div>', {class: 'modal-dialog' });
-                    var modalContent = $('<div>', {class: 'modal-content' });
-                    var modalHeader = $('<div>', {class: 'modal-header' });
-                    var modalBody = $('<div>', {class: 'modal-body' });
-                    var modalFooter = $('<div>', {class: 'modal-footer' });
-
-                    var select = $('<select>', {class: 'nextStateSelector' });
-
-                    modalHeader.appendTo(modalContent)
-                    modalBody.appendTo(modalContent)
-                    modalFooter.appendTo(modalContent)
-                    modalDialog.appendTo(modal)
-                    modalContent.appendTo(modal)
-                    modal.appendTo($('body').find('div.panel'))
-                    select.appendTo(modalContent)
-
-                    var closeButton = $('<button>', {class: 'close', 'data-dismiss': 'idAreYouSure', 'aria-hidden': "true", text: '{% trans "Close" %}'})
-                    var title = $('<h4>', {class: 'modal-title', text: '{% trans "Confirmation" %}'})
-
-                    closeButton.appendTo(modalHeader)
-                    title.appendTo(modalHeader)
-
-                    var noButton = $('<button>', {class: 'btn btn-default', 'data-dismiss': 'idAreYouSure', 'aria-hidden': "true", text: '{% trans "No" %}'})
-                    var yesButton = $('<button>', {class: 'btn btn-primary', 'aria-hidden': "true", text: '{% trans "Yes" %}'})
-
-                    noButton.appendTo(modalFooter)
-                    yesButton.appendTo(modalFooter)
-
-                    $('.approveNextState').click(function () {
-                        var pk = $(this).data('id')
-                        var nS = nextStates[pk]
-                        select.find('option').remove()
-                        $.each(nS, function (i, e) {
-                            var option = $('<option>', {value: e[0], text: e[1]})
-                            option.appendTo(select)
-                        })
-                    })
-                    $('#idSelectAvailableState').attr('data_id', pk)
-                    $('#idSelectAvailableState').modal('show')
-                }
-
-            })
-
-        </script>
+    {% if approvements.count > 0 %}
+        <a data-id="{{ obj_pk }}" data-count="{{ approvements.count }}" title="{% trans "Next State" %}" class="btn btn-primary dawApproveNextState" href="#">{% trans "Next State" %}</a>
     {% endif %}
 {% endblock %}
 

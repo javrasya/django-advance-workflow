@@ -10,10 +10,10 @@ register = template.Library()
 
 __author__ = 'ahmetdal'
 
-DAW_PROCESS_BUTTON_TEMPLATE = 'process_buttons.html'
+DAW_PROCESS_BUTTONS_TEMPLATE = 'process_buttons.html'
 
 
-@register.inclusion_tag(DAW_PROCESS_BUTTON_TEMPLATE, takes_context=True)
+@register.inclusion_tag(DAW_PROCESS_BUTTONS_TEMPLATE, takes_context=True)
 def daw_process_buttons(context, obj_pk, cls, state_field):
     cls = ContentType.objects.get_for_model(cls).model_class()
     obj = cls.objects.get(pk=obj_pk)

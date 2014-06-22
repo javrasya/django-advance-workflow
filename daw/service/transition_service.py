@@ -1,4 +1,5 @@
 from datetime import datetime
+from django.contrib.contenttypes.models import ContentType
 from daw.utils import middleware
 from daw.models import APPROVED, REJECTED
 from daw.service.approvement_service import ApprovementService
@@ -11,8 +12,17 @@ class TransitionService:
     def __init__(self):
         pass
 
+
     @staticmethod
-    def approve_transition(obj, field, state=None):
+    def approve_transition(content_type_id, obj_pk, field, state=None):
+        content_type = ContentType.objects.get(pk=content_type_id)
+        model = content_type.model_class()
+        obj = model.objects.get(pk=obj_pk)
+        TransitionService._approve_transition(obj, field, state)
+
+
+    @staticmethod
+    def _approve_transition(obj, field, state=None):
         approvement = TransitionService.process(obj, field, APPROVED, state)
         current_state = getattr(obj, field)
         required_approvements = ApprovementService.get_approvements_object_waiting_for_approval(obj, [current_state], include_user=False, destination_state=state)
