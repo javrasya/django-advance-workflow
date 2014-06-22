@@ -1,3 +1,4 @@
+from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import render_to_response
 
 # Create your views here.
@@ -21,6 +22,7 @@ def on_approval_objects(request):
 def process_buttons(request):
     context = {
         'cls': ExampleModel,
+        'content_type_id': ContentType.objects.get_for_model(ExampleModel).pk,
         'state_field': 'state',
         'objects': ExampleModel.objects.all(),
     }

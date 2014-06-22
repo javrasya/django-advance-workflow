@@ -9,6 +9,7 @@ urlpatterns = patterns('',
                        # url(r'^$', 'django_advance_workflow.views.home', name='home'),
                        # url(r'^blog/', include('blog.urls')),
                        url(r'^admin/', include(admin.site.urls)),
+                       url(r'^daw/', include('daw.urls')),
                        url(r'^example_app/', include('example_app.urls')),
 
 )
