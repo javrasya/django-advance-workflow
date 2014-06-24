@@ -14,7 +14,12 @@
 
     </script>
     {% if approvements.count > 0 %}
-        <a data-id="{{ obj_pk }}" data-count="{{ approvements.count }}" title="{% trans "Next State" %}" class="btn btn-primary dawApproveNextState" href="#">{% trans "Next State" %}</a>
+        {% if approve_button_text %}
+            <a data-id="{{ obj_pk }}" title="{{ approve_button_text }}" class="btn btn-primary dawApproveNextState" href="#">{{ approve_button_text }}</a>
+        {% endif %}
+        {% if reject_button_text %}
+            <a data-id="{{ obj_pk }}" title="{{ approve_button_text }}" class="btn btn-primary dawRejectNextState" href="#">{{ reject_button_text }}</a>
+        {% endif %}
     {% endif %}
 {% endblock %}
 

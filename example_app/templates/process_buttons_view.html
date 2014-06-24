@@ -46,7 +46,7 @@
                 <td scope="col">
                     {{ obj.state }}
                 </td>
-                <td>{% daw_process_buttons obj.pk cls state_field %}
+                <td>{% trans 'Next State' as approve_button_text %}{% daw_process_buttons obj.pk cls state_field approve_button_text %}
                 </td>
             </tr>
         {% endfor %}
