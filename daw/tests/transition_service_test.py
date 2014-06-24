@@ -4,7 +4,7 @@ from mock import MagicMock
 
 from daw.utils import middleware
 from daw.models import State, TransitionApprovement, APPROVED
-from daw.service.transition_service import TransitionService
+from daw.service.transitionservice import TransitionService
 from daw.tests import BaseTestCase, TestModel
 
 
@@ -35,7 +35,7 @@ class TransitionServiceTest(BaseTestCase):
         obj = TestModel.objects.get(pk=5001)
 
         try:
-            TransitionService.reject_transition(obj, 'test_field')
+            TransitionService._reject_transition(obj, 'test_field')
             self.fail('Exception was expected')
         except Exception, e:
             self.assertEqual(e.message, 'There is no available state for destination for the user.')
@@ -55,7 +55,7 @@ class TransitionServiceTest(BaseTestCase):
         obj = TestModel.objects.get(pk=5001)
 
         try:
-            TransitionService.reject_transition(obj, 'test_field')
+            TransitionService._reject_transition(obj, 'test_field')
             self.fail('Exception was expected')
         except Exception, e:
             self.assertEqual(e.message, 'There is no available state for destination for the user.')
@@ -75,7 +75,7 @@ class TransitionServiceTest(BaseTestCase):
         obj = TestModel.objects.get(pk=5001)
 
         try:
-            TransitionService.reject_transition(obj, 'test_field')
+            TransitionService._reject_transition(obj, 'test_field')
             self.fail('Exception was expected')
         except Exception, e:
             self.assertEqual(e.message, 'There is no available state for destination for the user.')

@@ -6,7 +6,7 @@ from django.db import models
 from django.db.models.signals import post_save, pre_save
 
 from daw.models import TransitionApprovement, State
-from daw.service.approvement_service import ApprovementService
+from daw.service.approvementservice import ApprovementService
 
 
 class StateField(models.ForeignKey):
@@ -31,7 +31,7 @@ class StateField(models.ForeignKey):
         :param kwargs:
         :return:
         """
-        from daw.service.state_service import StateService
+        from daw.service.stateservice import StateService
 
         instance = kwargs['instance']
         if self.model.objects.filter(pk=instance.pk).count() == 0:
@@ -47,7 +47,7 @@ class StateField(models.ForeignKey):
         instance = kwargs['instance']
         transition_approvements = TransitionApprovement.objects.filter(content_type=ContentType.objects.get_for_model(instance), object_pk=instance.pk)
         if transition_approvements.count() == 0:
-            ApprovementService.init_approvements(instance)
+            ApprovementService._init_approvements(instance)
 
 
     def get_state(self, instance):

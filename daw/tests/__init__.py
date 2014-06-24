@@ -18,3 +18,4 @@ from state_service_test import *
 from approvement_service_test import *
 from transition_service_test import *
 from object_service_test import *
+from approve_definition_service_test import *

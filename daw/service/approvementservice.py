@@ -15,7 +15,15 @@ class ApprovementService:
         pass
 
     @staticmethod
-    def init_approvements(obj):
+    def init_approvements(content_type_id, obj_pk):
+        content_type = ContentType.objects.get(pk=content_type_id)
+        model = content_type.model_class()
+        obj = model.objects.get(pk=obj_pk)
+        ApprovementService._init_approvements(obj)
+
+
+    @staticmethod
+    def _init_approvements(obj):
         content_type = ContentType.objects.get_for_model(obj)
         for transition_approve_definition in TransitionApproveDefinition.objects.filter(transition__content_type=content_type):
             TransitionApprovement.objects.create(

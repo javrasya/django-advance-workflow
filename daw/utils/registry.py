@@ -77,6 +77,7 @@ class TransitionChangeBase(type):
         return m
 
 
+# noinspection PyClassHasNoInit
 class TransitionChange:
     logger = logging.getLogger('informer')
 

@@ -2,8 +2,8 @@ from datetime import datetime
 from django.contrib.contenttypes.models import ContentType
 from daw.utils import middleware
 from daw.models import APPROVED, REJECTED
-from daw.service.approvement_service import ApprovementService
-from daw.service.state_service import StateService
+from daw.service.approvementservice import ApprovementService
+from daw.service.stateservice import StateService
 
 __author__ = 'ahmetdal'
 
@@ -32,7 +32,14 @@ class TransitionService:
 
 
     @staticmethod
-    def reject_transition(obj, field, state=None):
+    def reject_transition(content_type_id, obj_pk, field, state=None):
+        content_type = ContentType.objects.get(pk=content_type_id)
+        model = content_type.model_class()
+        obj = model.objects.get(pk=obj_pk)
+        TransitionService._reject_transition(obj, field, state)
+
+    @staticmethod
+    def _reject_transition(obj, field, state=None):
         TransitionService.process(obj, field, REJECTED, state)
 
     @staticmethod

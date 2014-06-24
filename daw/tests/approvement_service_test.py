@@ -5,7 +5,7 @@ from daw.tests import TestModel
 
 from daw.utils import middleware
 from daw.models import TransitionApprovement, State
-from daw.service.approvement_service import ApprovementService
+from daw.service.approvementservice import ApprovementService
 from daw.tests.base_test import BaseTestCase
 
 

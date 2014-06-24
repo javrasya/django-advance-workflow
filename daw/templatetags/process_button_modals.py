@@ -1,9 +1,9 @@
 from django import template
 from django.contrib.admin.templatetags.admin_modify import submit_row
 from django.contrib.contenttypes.models import ContentType
-from daw.service.approvement_service import ApprovementService
+from daw.service.approvementservice import ApprovementService
 
-from daw.service.object_service import ObjectService
+from daw.service.objectservice import ObjectService
 
 
 register = template.Library()

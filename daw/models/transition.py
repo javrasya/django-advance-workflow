@@ -9,8 +9,8 @@ __author__ = 'ahmetdal'
 
 class Transition(models.Model):
     class Meta:
-        verbose_name = _("Available State")
-        verbose_name_plural = _("Available States")
+        verbose_name = _("Transition")
+        verbose_name_plural = _("Transitions")
         db_table = "daw_transition"
         app_label = "daw"
 

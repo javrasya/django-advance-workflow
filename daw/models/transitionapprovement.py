@@ -8,12 +8,14 @@ from daw.models import TransitionApproveDefinition
 
 __author__ = 'ahmetdal'
 
-PENDING = 0
-APPROVED = 1
-REJECTED = 2
+PENDING = '0'
+APPROVED = '1'
+REJECTED = '2'
 
-APPROVEMNT_STATUS = [
-    ('PENDING', _('PENDING'))
+APPROVMENT_STATUSES = [
+    (PENDING, _('Pending')),
+    (APPROVED, _('Approved')),
+    (REJECTED, _('Rejected')),
 ]
 
 
@@ -32,7 +34,7 @@ class TransitionApprovement(models.Model):
     transactioner = models.ForeignKey(getattr(settings, 'AUTH_USER_MODEL', 'auth.User'), verbose_name=_('Approver'), null=True, blank=True)
     transaction_date = models.DateTimeField(null=True, blank=True)
 
-    status = models.CharField(_('Status'), max_length=20, default=PENDING)
+    status = models.CharField(_('Status'), max_length=20, choices=APPROVMENT_STATUSES, default=PENDING)
 
     skip = models.BooleanField(_('Skip'), default=False)
 

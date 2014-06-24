@@ -4,8 +4,8 @@ from mock import MagicMock
 
 from daw.utils import middleware
 from daw.models import TransitionApprovement
-from daw.service.object_service import ObjectService
-from daw.service.state_service import StateService
+from daw.service.objectservice import ObjectService
+from daw.service.stateservice import StateService
 from daw.tests import BaseTestCase, TestModel
 
 

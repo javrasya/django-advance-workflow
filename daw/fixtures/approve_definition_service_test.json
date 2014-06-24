@@ -1,0 +1,59 @@
+[
+    {
+        "pk": 1001,
+        "model": "auth.Permission",
+        "fields": {
+            "name": "permission_1",
+            "content_type": 1,
+            "codename": "1"
+        }
+    },
+    {
+        "pk": 3001,
+        "model": "daw.State",
+        "fields": {
+            "label": "s1"
+        }
+    },
+    {
+        "pk": 3002,
+        "model": "daw.State",
+        "fields": {
+            "label": "s2"
+        }
+    },
+    {
+        "pk": 3003,
+        "model": "daw.State",
+        "fields": {
+            "label": "s3"
+        }
+    },
+    {
+        "pk": 4001,
+        "model": "daw.Transition",
+        "fields": {
+            "content_type": 11,
+            "source_state": 3001,
+            "destination_state": 3002
+        }
+    },
+    {
+        "pk": 6001,
+        "model": "daw.TransitionApproveDefinition",
+        "fields": {
+            "transition": 4001,
+            "permission": 1001,
+            "order": 0
+
+        }
+    },
+    {
+        "pk": 5001,
+        "model": "tests.TestModel",
+        "fields": {
+            "test_field": 3001
+        }
+    }
+
+]

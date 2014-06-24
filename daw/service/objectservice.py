@@ -1,4 +1,4 @@
-from daw.service.approvement_service import ApprovementService
+from daw.service.approvementservice import ApprovementService
 
 
 __author__ = 'ahmetdal'
