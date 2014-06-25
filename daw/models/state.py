@@ -15,7 +15,7 @@ class State(BaseModel):
         app_label = "daw"
 
     label = models.CharField(max_length=50)
-    description = models.TextField(_("Description"), max_length=5000, null=True, blank=True)
+    description = models.TextField(_("Description"), max_length=200, null=True, blank=True)
 
 
     def __unicode__(self):
