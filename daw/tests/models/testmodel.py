@@ -1,5 +1,5 @@
 from django.db import models
-from daw.models import State
+
 from daw.utils.fields import StateField
 
 

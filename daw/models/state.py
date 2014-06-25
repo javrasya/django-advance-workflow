@@ -1,10 +1,13 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+from daw.models.base_model import BaseModel
+
+
 __author__ = 'ahmetdal'
 
 
-class State(models.Model):
+class State(BaseModel):
     class Meta:
         verbose_name = _("State")
         verbose_name_plural = _("States")

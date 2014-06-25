@@ -1,13 +1,14 @@
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from daw.models import State
+
+from daw.models import State, BaseModel
 
 
 __author__ = 'ahmetdal'
 
 
-class Transition(models.Model):
+class Transition(BaseModel):
     class Meta:
         verbose_name = _("Transition")
         verbose_name_plural = _("Transitions")

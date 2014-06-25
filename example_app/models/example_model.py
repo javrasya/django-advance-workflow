@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+
 from daw.utils.fields import StateField
+
 
 __author__ = 'ahmetdal'
 

@@ -1,11 +1,10 @@
-from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
-from django.db import connections, connection
+from django.db import connection
 from django.db.models import Q
-from mock import MagicMock
+
 from daw.models.state import State
 from daw.models.transition import Transition
-from daw.models.transitionapprovedefinition import TransitionApproveDefinition, TransitionApproveDefinitionManager
+from daw.models.transitionapprovedefinition import TransitionApproveDefinition
 from daw.service.approvedefinitionservice import ApproveDefinitionService
 
 from daw.tests import TestModel

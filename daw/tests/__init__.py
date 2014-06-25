@@ -1,7 +1,5 @@
 from django.db.models.signals import pre_save
 
-from daw.models.transition import Transition
-
 
 __author__ = 'ahmetdal'
 

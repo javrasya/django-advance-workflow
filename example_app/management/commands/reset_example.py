@@ -1,7 +1,9 @@
 from django.contrib.auth.models import User, Permission
 from django.contrib.contenttypes.models import ContentType
+
 from daw.models import Transition, State, TransitionApproveDefinition
 from example_app.models import ExampleModel
+
 
 __author__ = 'ahmetdal'
 

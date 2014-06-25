@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from mock import MagicMock
-from daw.tests import TestModel
 
+from daw.tests import TestModel
 from daw.utils import middleware
 from daw.models import TransitionApprovement, State
 from daw.service.approvementservice import ApprovementService

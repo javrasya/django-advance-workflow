@@ -26,11 +26,13 @@ class ApprovementService:
     def _init_approvements(obj):
         content_type = ContentType.objects.get_for_model(obj)
         for transition_approve_definition in TransitionApproveDefinition.objects.filter(transition__content_type=content_type):
-            TransitionApprovement.objects.create(
+            TransitionApprovement.objects.update_or_create(
                 approve_definition=transition_approve_definition,
                 object_pk=obj.pk,
                 content_type=content_type,
-                status=PENDING
+                defaults={
+                    'status': PENDING
+                }
             )
 
     @staticmethod

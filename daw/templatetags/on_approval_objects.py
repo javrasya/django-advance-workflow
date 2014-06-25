@@ -1,5 +1,4 @@
 from django import template
-from django.contrib.admin.templatetags.admin_modify import submit_row
 from django.contrib.contenttypes.models import ContentType
 
 from daw.service.objectservice import ObjectService

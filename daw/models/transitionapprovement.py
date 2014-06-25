@@ -3,7 +3,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
-from daw.models import TransitionApproveDefinition
+
+from daw.models import TransitionApproveDefinition, BaseModel
 
 
 __author__ = 'ahmetdal'
@@ -19,7 +20,7 @@ APPROVMENT_STATUSES = [
 ]
 
 
-class TransitionApprovement(models.Model):
+class TransitionApprovement(BaseModel):
     class Meta:
         verbose_name = _("Transition Approvement")
         verbose_name_plural = _("Transition Approvements")

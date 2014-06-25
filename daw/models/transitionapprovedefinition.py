@@ -2,14 +2,14 @@ from django.contrib.auth.models import Permission
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from daw.models import Transition
+from daw.models import Transition, BaseModel
 from daw.models.managers.transitionapprovedefinitionmanager import TransitionApproveDefinitionManager
 
 
 __author__ = 'ahmetdal'
 
 
-class TransitionApproveDefinition(models.Model):
+class TransitionApproveDefinition(BaseModel):
     class Meta:
         verbose_name = _("Transition Approve Definition")
         verbose_name_plural = _("Transition Approve Definitions")

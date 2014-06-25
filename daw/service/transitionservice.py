@@ -1,9 +1,12 @@
 from datetime import datetime
+
 from django.contrib.contenttypes.models import ContentType
+
 from daw.utils import middleware
 from daw.models import APPROVED, REJECTED
 from daw.service.approvementservice import ApprovementService
 from daw.service.stateservice import StateService
+
 
 __author__ = 'ahmetdal'
 
