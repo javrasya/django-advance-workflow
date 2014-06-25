@@ -14,7 +14,7 @@ from django.core.management.base import BaseCommand
 class Command(BaseCommand):
     def handle(self, *args, **options):
         for model in models.get_models(include_auto_created=True):
-            for field in models._meta.fields:
+            for field in model._meta.fields:
                 if isinstance(field, StateField):
                     content_type = ContentType.objects.get_for_model(model)
                     for obj in model.objects.all():
