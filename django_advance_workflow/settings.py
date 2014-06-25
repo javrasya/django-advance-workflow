@@ -153,4 +153,3 @@ TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'django.core.context_processors.request',
 )
 
-CONTENT_TYPE_EXTERNAL_APP_LABEL = 'external'
