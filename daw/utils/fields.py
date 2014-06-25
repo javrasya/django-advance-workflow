@@ -1,16 +1,19 @@
 __author__ = 'ahmetdal'
 
 from django.contrib.contenttypes.models import ContentType
+
 from django.db import models
 
 from django.db.models.signals import post_save, pre_save
 
 from daw.models import TransitionApprovement, State
+
 from daw.service.approvementservice import ApprovementService
 
 
 class StateField(models.ForeignKey):
     def __init__(self, state_model=State, *args, **kwargs):
+        kwargs.pop('to', None)
         kwargs['null'] = True
         kwargs['blank'] = True
         super(StateField, self).__init__(state_model, *args, **kwargs)
