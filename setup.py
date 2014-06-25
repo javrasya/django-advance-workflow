@@ -18,7 +18,7 @@ setup(
     install_requires=[
         "Django",
     ],
-    packages=['daw','daw.models','daw.models.managers','daw.models.querysets','daw.service','daw.templatetags','daw.tests','daw.utlils'],
+    packages=['daw','daw.models','daw.models.managers','daw.models.querysets','daw.service','daw.templatetags','daw.tests','daw.utils'],
     include_package_data=True,
     zip_safe=False,
     license='GPL',
