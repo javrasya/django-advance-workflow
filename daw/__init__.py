@@ -4,6 +4,7 @@ from django.conf import settings
 
 
 CONTENT_TYPE_EXTERNAL_APP_LABEL = hasattr(settings, 'CONTENT_TYPE_EXTERNAL_APP_LABEL') and settings.CONTENT_TYPE_EXTERNAL_APP_LABEL or 'external'
+PERMISSION_EXTERNAL_CODE_NAME = hasattr(settings, 'PERMISSION_EXTERNAL_CODE_NAME') and settings.CONTENT_TYPE_EXTERNAL_APP_LABEL or 'external'
 
 DAW_LOAD_AS_BUILT_IN = hasattr(settings, 'DAW_LOAD_AS_BUILT_IN') and settings.DAW_LOAD_AS_BUILT_IN or True
 

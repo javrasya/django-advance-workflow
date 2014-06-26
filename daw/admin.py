@@ -1,12 +1,20 @@
 from django.contrib import admin
 
-from daw.forms import ContentTypeForm
+from daw.forms import ContentTypeForm, PermissionForm
 
 from daw.models import State
 from daw.models.externalcontenttype import ExternalContentType
+from daw.models.externalpermission import ExternalPermission
 from daw.models.transition import Transition
 from daw.models.transitionapprovedefinition import TransitionApproveDefinition
 from daw.models.transitionapprovement import TransitionApprovement
+
+
+class ExternalPermissionAdmin(admin.ModelAdmin):
+    list_display = ["name", "content_type"]
+    list_filter = ["name", "content_type"]
+
+    form = PermissionForm
 
 
 class ExternalContentTypeAdmin(admin.ModelAdmin):
@@ -37,6 +45,7 @@ class TransitionApprovementAdmin(admin.ModelAdmin):
 
 
 admin.site.register(ExternalContentType, ExternalContentTypeAdmin)
+admin.site.register(ExternalPermission, ExternalPermissionAdmin)
 admin.site.register(State, StateAdmin)
 admin.site.register(Transition, TransitionAdmin)
 admin.site.register(TransitionApproveDefinition, TransitionApproveDefinitionAdmin)
