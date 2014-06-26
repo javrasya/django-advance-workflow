@@ -112,7 +112,8 @@
                 else {
                     next_state_id = ''
                 }
-                var approveUri = "{% url 'daw.views.approve_transition_view' content_type_id 'arg2' state_field request.build_absolute_uri|urlencode:"" 'arg5' %}".replace(/arg2/, obj_pk).replace(/\/arg5/, next_state_id);
+                var approveUri = {% with cls|content_type as ct %}"{% url 'daw.views.approve_transition_view' ct.pk 'arg2' state_field request.build_absolute_uri|urlencode:"" 'arg5' %}".replace
+                    (/arg2/, obj_pk).replace(/\/arg5/, next_state_id){% endwith %};
 
                 window.location = approveUri
             })

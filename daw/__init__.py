@@ -13,3 +13,4 @@ if DAW_LOAD_AS_BUILT_IN:
     add_to_builtins('daw.templatetags.on_approval_objects')
     add_to_builtins('daw.templatetags.process_button_modals')
     add_to_builtins('daw.templatetags.process_buttons')
+    add_to_builtins('daw.templatetags.content_type_filter')

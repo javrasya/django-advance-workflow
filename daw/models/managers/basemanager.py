@@ -1,7 +1,6 @@
 import sys
 
-from django.db import models, IntegrityError
-from django.middleware import transaction
+from django.db import models, IntegrityError, transaction
 from django.utils import six
 
 
