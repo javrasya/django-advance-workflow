@@ -18,7 +18,7 @@ setup(
     install_requires=[
         "Django", "south"
     ],
-    packages=['daw','daw.management','daw.management.commands','daw.migrations', 'daw.models', 'daw.models.managers', 'daw.models.querysets', 'daw.service', 'daw.templatetags', 'daw.tests', 'daw.utils'],
+    packages=['daw','daw.management','daw.management.commands','daw.migrations', 'daw.models', 'daw.models.managers', 'daw.models.querysets', 'daw.service', 'daw.templatetags', 'daw.tests', 'daw.utils','daw.templates'],
     include_package_data=True,
     zip_safe=False,
     license='GPL',
