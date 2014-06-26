@@ -1,4 +1,3 @@
-from django.conf import settings
 from daw import CONTENT_TYPE_EXTERNAL_APP_LABEL
 
 from daw.models.managers.basemanager import BaseModelManager

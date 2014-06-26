@@ -6,9 +6,7 @@ from daw.models.state import State
 from daw.models.transition import Transition
 from daw.models.transitionapprovedefinition import TransitionApproveDefinition
 from daw.service.approvedefinitionservice import ApproveDefinitionService
-
 from daw.tests import TestModel
-
 from daw.models import TransitionApprovement
 from daw.tests.base_test import BaseTestCase
 

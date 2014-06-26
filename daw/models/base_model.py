@@ -2,8 +2,8 @@ from datetime import datetime
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from daw.models.managers.basemanager import BaseModelManager
 
+from daw.models.managers.basemanager import BaseModelManager
 from daw.utils.middleware import get_user
 
 

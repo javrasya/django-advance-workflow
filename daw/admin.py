@@ -1,7 +1,6 @@
 from django.contrib import admin
 
 from daw.forms import ContentTypeForm, PermissionForm
-
 from daw.models import State
 from daw.models.externalcontenttype import ExternalContentType
 from daw.models.externalpermission import ExternalPermission
