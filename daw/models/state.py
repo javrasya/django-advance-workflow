@@ -19,7 +19,7 @@ class State(BaseModel):
 
 
     def __unicode__(self):
-        return '%s%s' % (self.label, self.description and '(%s)' % self.description or '')
+        return self.label
 
 
 

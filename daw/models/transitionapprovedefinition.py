@@ -30,6 +30,10 @@ class TransitionApproveDefinition(BaseModel):
         ApproveDefinitionService.apply_new_approve_definition(self)
 
 
+    def __unicode__(self):
+        return 'Transition:%s, Permission:%s, Order:%s' % (self.transition, self.permission, self.order)
+
+
 
 
 

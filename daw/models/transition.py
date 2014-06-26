@@ -20,6 +20,8 @@ class Transition(BaseModel):
     destination_state = models.ForeignKey(State, verbose_name=_("Next State"), related_name='transitions_as_destination')
 
 
+    def __unicode__(self):
+        return '%s -> %s (%s)' % (self.source_state, self.destination_state, self.content_type)
 
 
 
