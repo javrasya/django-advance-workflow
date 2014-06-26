@@ -17,7 +17,7 @@ class Command(BaseCommand):
                 if isinstance(field, StateField):
                     content_type = ContentType.objects.get_for_model(model)
                     for obj in model.objects.all():
-                        ApprovementService.init_approvements(content_type.pk, obj.pk)
+                        ApprovementService.init_approvements(content_type.pk, obj.pk, field.name)
 
 
 

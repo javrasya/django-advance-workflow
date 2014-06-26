@@ -10,7 +10,7 @@ from daw.service.transitionservice import TransitionService
 def init_object_approvements_view(request, content_type_id, obj_pk, state_field, callback_url):
     callback_url = _get_decoded_callback_url(callback_url)
     try:
-        ApprovementService.init_approvements(content_type_id, obj_pk)
+        ApprovementService.init_approvements(content_type_id, obj_pk, state_field)
         callback_url += '?result=success'
     except Exception, e:
         callback_url += '?result=failed&error_message=%s' % e.message

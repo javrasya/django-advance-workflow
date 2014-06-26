@@ -1,5 +1,6 @@
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Min, Q
+from daw.service.stateservice import StateService
 
 from daw.utils import middleware
 from daw.models import State
@@ -15,15 +16,15 @@ class ApprovementService:
         pass
 
     @staticmethod
-    def init_approvements(content_type_id, obj_pk):
+    def init_approvements(content_type_id, obj_pk, state_field):
         content_type = ContentType.objects.get(pk=content_type_id)
         model = content_type.model_class()
         obj = model.objects.get(pk=obj_pk)
-        ApprovementService._init_approvements(obj)
+        ApprovementService._init_approvements(obj, state_field)
 
 
     @staticmethod
-    def _init_approvements(obj):
+    def _init_approvements(obj, state_field):
         content_type = ContentType.objects.get_for_model(obj)
         for transition_approve_definition in TransitionApproveDefinition.objects.filter(transition__content_type=content_type):
             TransitionApprovement.objects.update_or_create(
@@ -34,6 +35,9 @@ class ApprovementService:
                     'status': PENDING
                 }
             )
+            setattr(obj, state_field, StateService.get_init_state(content_type))
+            obj.save()
+
 
     @staticmethod
     def get_approvements_object_waiting_for_approval(obj, source_states, include_user=True, destination_state=None):
