@@ -1,0 +1,4 @@
+include LICENSE
+include README.mrd
+recursive-include static *
+recursive-include daw/templates *
