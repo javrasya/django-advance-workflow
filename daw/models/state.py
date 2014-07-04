@@ -13,6 +13,7 @@ class State(BaseModel):
         verbose_name_plural = _("States")
         db_table = "daw_state"
         app_label = "daw"
+        ordering = ('created_at',)
 
     label = models.CharField(max_length=50)
     description = models.TextField(_("Description"), max_length=200, null=True, blank=True)
