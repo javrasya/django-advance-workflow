@@ -16,7 +16,7 @@ class State(BaseModel):
         ordering = ('created_at',)
 
     label = models.CharField(max_length=50)
-    description = models.TextField(_("Description"), max_length=200, null=True, blank=True)
+    description = models.CharField(_("Description"), max_length=200, null=True, blank=True)
 
 
     def __unicode__(self):
