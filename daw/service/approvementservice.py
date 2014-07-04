@@ -40,6 +40,30 @@ class ApprovementService:
 
 
     @staticmethod
+    def apply_approvements(content_type_id, obj_pk, state_field):
+        content_type = ContentType.objects.get(pk=content_type_id)
+        model = content_type.model_class()
+        obj = model.objects.get(pk=obj_pk)
+        ApprovementService._apply_approvements(obj, state_field)
+
+
+    @staticmethod
+    def _apply_approvements(obj, state_field):
+        content_type = ContentType.objects.get_for_model(obj)
+        for transition_approve_definition in TransitionApproveDefinition.objects.filter(transition__content_type=content_type):
+            TransitionApprovement.objects.get_or_create(
+                approve_definition=transition_approve_definition,
+                object_pk=obj.pk,
+                content_type=content_type,
+                defaults={
+                    'status': PENDING
+                }
+            )
+            setattr(obj, state_field, StateService.get_init_state(content_type))
+            obj.save()
+
+
+    @staticmethod
     def get_approvements_object_waiting_for_approval(obj, source_states, include_user=True, destination_state=None):
 
         content_type = ContentType.objects.get_for_model(obj)

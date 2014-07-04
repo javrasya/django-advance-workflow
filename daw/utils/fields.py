@@ -47,7 +47,7 @@ class StateField(models.ForeignKey):
         instance = kwargs['instance']
         transition_approvements = TransitionApprovement.objects.filter(content_type=ContentType.objects.get_for_model(instance), object_pk=instance.pk)
         if transition_approvements.count() == 0:
-            ApprovementService._init_approvements(instance)
+            ApprovementService._init_approvements(instance, self.name)
 
 
     def get_state(self, instance):
