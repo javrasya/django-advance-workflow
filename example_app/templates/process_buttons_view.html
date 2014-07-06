@@ -1,60 +1,62 @@
+{% extends 'example_base.html' %}
 {% load i18n admin_urls %}
+{% block content %}
 
-<div class="panel panel-default">
-    <!-- Default panel contents -->
-    <div class="panel-heading">{% trans "On Approval" %} {{ cls_meta.verbose_name_plural }}</div>
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">{% trans "On Approval" %} {{ cls_meta.verbose_name_plural }}</div>
 
-    <!-- Table -->
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">
-                Field 1
-            </th>
-            <th scope="col">
-                Field 2
-            </th>
-            <th scope="col">
-                Field 3
-            </th>
-            <th scope="col">
-                Field 4
-            </th>
-            <th scope="col">
-                State
-            </th>
-            <th scope="col">
-                Operations
-            </th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for obj in objects %}
+        <!-- Table -->
+        <table class="table">
+            <thead>
             <tr>
-                <td scope="col">
-                    {{ obj.field1 }}
-                </td>
-                <td scope="col">
-                    {{ obj.field2 }}
-                </td>
-                <td scope="col">
-                    {{ obj.field3 }}
-                </td>
-                <td scope="col">
-                    {{ obj.field4 }}
-                </td>
-                <td scope="col">
-                    {{ obj.state }}
-                </td>
-                <td>{% trans 'Next State' as approve_button_text %}{% daw_process_buttons obj.pk cls state_field approve_button_text %}
-                </td>
+                <th scope="col">
+                    Field 1
+                </th>
+                <th scope="col">
+                    Field 2
+                </th>
+                <th scope="col">
+                    Field 3
+                </th>
+                <th scope="col">
+                    Field 4
+                </th>
+                <th scope="col">
+                    State
+                </th>
+                <th scope="col">
+                    Operations
+                </th>
             </tr>
-        {% endfor %}
+            </thead>
+            <tbody>
+            {% for obj in objects %}
+                <tr>
+                    <td scope="col">
+                        {{ obj.field1 }}
+                    </td>
+                    <td scope="col">
+                        {{ obj.field2 }}
+                    </td>
+                    <td scope="col">
+                        {{ obj.field3 }}
+                    </td>
+                    <td scope="col">
+                        {{ obj.field4 }}
+                    </td>
+                    <td scope="col">
+                        {{ obj.state }}
+                    </td>
+                    <td>{% trans 'Next State' as approve_button_text %}{% daw_process_buttons obj.pk cls state_field approve_button_text %}
+                    </td>
+                </tr>
+            {% endfor %}
 
-        </tbody>
-    </table>
-    {% daw_process_button_modals %}
-</div>
+            </tbody>
+        </table>
+        {% daw_process_button_modals %}
+    </div>
 
-
+{% endblock %}
 

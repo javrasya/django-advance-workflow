@@ -1,0 +1,11 @@
+{% extends 'example_base.html' %}
+{#{% load on_approval_objects %}#}
+
+{% block content %}
+
+    <div class="btn-group btn-group-vertical">
+        <a href="{% url "example_app.views.on_approval_objects" %}" class="btn btn-info">On Approval Object Example</a>
+        <a href="{% url "example_app.views.process_buttons" %}" class="btn btn-info">Process Button Example</a>
+    </div>
+
+{% endblock %}

@@ -15,22 +15,28 @@
                         {{ list_display }}
                     </th>
                 {% endfor %}
+                <th>
+                    {% trans "Operations" %}
+                </th>
             </tr>
             </thead>
             <tbody>
             {% for values in objects %}
                 <tr>
 
-                    {% for value in values %}
+                    {% for value in values.1 %}
                         <td scope="col">
                             {{ value }}
                         </td>
                     {% endfor %}
+                    <td>
+                        {% daw_process_buttons values.0 cls state_field next_button_text %}
+                    </td>
                 </tr>
             {% endfor %}
 
             </tbody>
         </table>
     </div>
-
+    {% daw_process_button_modals %}
 {% endblock %}

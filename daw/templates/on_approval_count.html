@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+    <a href="{{ on_approval_count_button_href }}">{{ on_approval_count_button_text }} <span class="badge">{{ on_approval_count }}</span></a>
+{% endblock %}
