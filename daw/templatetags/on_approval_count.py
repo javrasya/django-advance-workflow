@@ -1,6 +1,7 @@
 from django import template
 from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import ugettext
+from daw.service.approvementservice import ApprovementService
 
 from daw.service.objectservice import ObjectService
 
@@ -17,9 +18,8 @@ def daw_on_approval_count(context, cls, state_field, button_href, button_text=ug
     content_type = ContentType.objects.get_for_model(cls)
 
     objects = ObjectService.get_objects_waiting_for_approval(content_type, state_field)
-
     ctx = context
-
+    ctx['is_user_authorized'] = ApprovementService.has_user_any_action(content_type, state_field)
     ctx['on_approval_count_button_href'] = button_href
     ctx['on_approval_count_button_text'] = button_text
     ctx['on_approval_count'] = objects.count()

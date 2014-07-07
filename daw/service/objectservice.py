@@ -18,3 +18,5 @@ class ObjectService:
             if approvements.count():
                 object_pks.append(obj.pk)
         return model.objects.filter(pk__in=object_pks)
+
+

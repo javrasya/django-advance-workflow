@@ -92,13 +92,11 @@ class ApprovementService:
             return ApprovementService.get_approvements_object_waiting_for_approval(obj, State.objects.filter(pk__in=source_state_pks), include_user=False)
 
 
-
-
-
-
-
-
-
+    @staticmethod
+    def has_user_any_action(content_type, field):
+        user = middleware.get_user()
+        approvements = TransitionApprovement.objects.filter(Q(transactioner=user) | Q(approve_definition__permission__in=user.user_permissions.all())).filter(content_type=content_type)
+        return approvements.count() != 0
 
 
 
