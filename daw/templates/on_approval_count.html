@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% block content %}
-    <a class="{% if on_approval_count_button_class %}{{ on_approval_count_button_class }}{% else %}on_approval_count_button_class{% endif %}"
-       href="{{ on_approval_count_button_href }}">{{ on_approval_count_button_text }} <span
-            class="badge">{{ on_approval_count }}</span></a>
+    {% if on_approval_count %}
+        <a class="{% if on_approval_count_button_class %}{{ on_approval_count_button_class }}{% else %}on_approval_count_button_class{% endif %}"
+           href="{{ on_approval_count_button_href }}">{{ on_approval_count_button_text }} <span
+                class="badge">{{ on_approval_count }}</span></a>
+    {% endif %}
 {% endblock %}
