@@ -65,6 +65,16 @@ class ApprovementService:
 
     @staticmethod
     def get_approvements_object_waiting_for_approval(obj, source_states, include_user=True, destination_state=None):
+        def get_approvement(approvements):
+            min_order = approvements.aggregate(Min('approve_definition__order'))['approve_definition__order__min']
+            approvements = approvements.filter(approve_definition__order=min_order)
+            if include_user:
+                user = middleware.get_user()
+                approvements = approvements.filter(Q(transactioner=user) | Q(approve_definition__permission__in=user.user_permissions.all()))
+            if destination_state:
+                approvements = approvements.filter(approve_definition__transition__destination_state=destination_state)
+
+            return approvements
 
         content_type = ContentType.objects.get_for_model(obj)
         approvements = TransitionApprovement.objects.filter(
@@ -73,16 +83,11 @@ class ApprovementService:
             approve_definition__transition__source_state__in=source_states,
             status=PENDING
         )
-        min_order = approvements.aggregate(Min('approve_definition__order'))['approve_definition__order__min']
-        approvements = approvements.filter(approve_definition__order=min_order)
-        if include_user:
-            user = middleware.get_user()
-            approvements = approvements.filter(Q(transactioner=user) | Q(approve_definition__permission__in=user.user_permissions.all()))
-        if destination_state:
-            approvements = approvements.filter(approve_definition__transition__destination_state=destination_state)
+        approvements = get_approvement(approvements)
+        unskipped_approvements = get_approvement(approvements.filter(skip=False))
 
-        unskipped_approvements = approvements.filter(skip=False)
 
+        # These are seperated queryset because we need to non-filtered by skip field to know whether there is no approvement.
         if approvements.count() == 0:
             return approvements
         elif unskipped_approvements.count() != 0:
