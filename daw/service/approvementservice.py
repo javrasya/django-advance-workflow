@@ -83,18 +83,19 @@ class ApprovementService:
             approve_definition__transition__source_state__in=source_states,
             status=PENDING
         )
-        approvements = get_approvement(approvements)
+        all_approvements = get_approvement(approvements)
         unskipped_approvements = get_approvement(approvements.filter(skip=False))
 
 
         # These are seperated queryset because we need to non-filtered by skip field to know whether there is no approvement.
-        if approvements.count() == 0:
-            return approvements
+        if all_approvements.count() == 0:
+            return all_approvements
         elif unskipped_approvements.count() != 0:
             return unskipped_approvements
         else:
             source_state_pks = approvements.values_list('approve_definition__transition__destination_state', flat=True)
             return ApprovementService.get_approvements_object_waiting_for_approval(obj, State.objects.filter(pk__in=source_state_pks), include_user=False)
+
 
 
     @staticmethod
