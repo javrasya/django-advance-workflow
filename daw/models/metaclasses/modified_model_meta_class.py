@@ -2,9 +2,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.db.models.base import ModelBase
 from django.db.models.signals import pre_save, post_save
 
-from daw.models import TransitionApprovement
 from daw.service.approvementservice import ApprovementService
-from daw.utils.fields import StateField
+
 
 
 __author__ = 'ahmetdal'
@@ -27,7 +26,7 @@ def _pre_save(*args, **kwargs):  # signal, sender, instance):
     :return:
     """
     from daw.service.stateservice import StateService
-
+    from daw.utils.fields import StateField
     instance = kwargs['instance']
     model = instance.__class__
     fields = []
@@ -46,6 +45,8 @@ def _post_save(*args, **kwargs):  # signal, sender, instance):
     :param kwargs:
     :return:
     """
+    from daw.utils.fields import StateField
+    from daw.models import TransitionApprovement
 
     instance = kwargs['instance']
     model = instance.__class__
