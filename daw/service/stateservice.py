@@ -35,7 +35,7 @@ class StateService:
             transitions_as_source__isnull=False,
             transitions_as_source__content_type=content_type,
             transitions_as_destination__isnull=True,
-        )
+        ).distinct()
         c = initial_state_candidates.count()
         if c == 0:
             raise Exception('There is no available initial state for the content type %s. Insert a state which is not a destination in a transition.' % content_type)
