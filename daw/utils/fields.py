@@ -1,3 +1,5 @@
+from daw.models.metaclasses.modified_model_meta_class import ModifiedModelMetaclass
+
 __author__ = 'ahmetdal'
 
 from django.contrib.contenttypes.models import ContentType
@@ -21,8 +23,9 @@ class StateField(models.ForeignKey):
 
         super(StateField, self).contribute_to_class(cls, name, virtual_only=virtual_only)
 
-        pre_save.connect(self._pre_save, cls, False)
-        post_save.connect(self._post_save, cls, False)
+        self.model.__metaclass__ = ModifiedModelMetaclass
+        # pre_save.connect(self._pre_save, cls, False)
+        # post_save.connect(self._post_save, cls, False)
 
 
     def _pre_save(self, **kwargs):  # signal, sender, instance):
