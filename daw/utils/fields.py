@@ -1,4 +1,4 @@
-from daw.models.metaclasses.modified_model_meta_class import ModifiedModelMetaclass
+from daw.models.metaclasses.workflow_model_metaclass import ModifiedModelMetaclass
 
 __author__ = 'ahmetdal'
 

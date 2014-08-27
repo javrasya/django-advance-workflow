@@ -5,13 +5,12 @@ from django.db.models.signals import pre_save, post_save
 from daw.service.approvementservice import ApprovementService
 
 
-
 __author__ = 'ahmetdal'
 
 
-class ModifiedModelMetaclass(ModelBase):
+class WorkflowModelMetaclass(ModelBase):
     def __new__(cls, name, bases, attrs):
-        result = super(ModifiedModelMetaclass, cls).__new__(cls, name, bases, attrs)
+        result = super(WorkflowModelMetaclass, cls).__new__(cls, name, bases, attrs)
 
         pre_save.connect(_pre_save, cls, False)
         post_save.connect(_post_save, cls, False)
@@ -27,6 +26,7 @@ def _pre_save(*args, **kwargs):  # signal, sender, instance):
     """
     from daw.service.stateservice import StateService
     from daw.utils.fields import StateField
+
     instance = kwargs['instance']
     model = instance.__class__
     fields = []
