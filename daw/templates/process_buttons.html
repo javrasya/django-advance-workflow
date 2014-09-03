@@ -6,7 +6,12 @@
             if (typeof nextStates == "undefined") {
                 nextStates = {}
             }
+            if (typeof currentStates == "undefined") {
+                currentStates = {}
+            }
+            currentStates[{{ obj_pk }}] =
             nextStates[{{ obj_pk }}] = []
+
             {% for approvement in approvements %}
                 nextStates[{{ obj_pk }}].push([{{ approvement.approve_definition.transition.destination_state.pk }}, "{{ approvement.approve_definition.transition.destination_state.label }}"])
             {% endfor %}

@@ -1,8 +1,9 @@
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from daw.models.base_model import BaseModel
 
-from daw.models import State, BaseModel
+from daw.models.state import State
 
 
 __author__ = 'ahmetdal'

@@ -12,8 +12,8 @@ class WorkflowModelMetaclass(ModelBase):
     def __new__(cls, name, bases, attrs):
         result = super(WorkflowModelMetaclass, cls).__new__(cls, name, bases, attrs)
 
-        pre_save.connect(_pre_save, cls, False)
-        post_save.connect(_post_save, cls, False)
+        pre_save.connect(_pre_save, result, False)
+        post_save.connect(_post_save, result, False)
 
         return result
 

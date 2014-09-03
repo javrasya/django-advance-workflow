@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from daw.models.metaclasses.workflow_model_metaclass import WorkflowModelMetaclass
 
 from daw.utils.fields import StateField
 
@@ -8,6 +9,8 @@ __author__ = 'ahmetdal'
 
 
 class ExampleModel(models.Model):
+    __metaclass__ = WorkflowModelMetaclass
+
     class Meta:
         verbose_name = _("Example Model")
         verbose_name_plural = _("Example Models")

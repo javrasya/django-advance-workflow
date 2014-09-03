@@ -1,7 +1,8 @@
 from django.contrib.contenttypes.models import ContentType
 
 from daw.utils import middleware
-from daw.models import State, TransitionApprovement
+from daw.models.state import State
+from daw.models.transitionapprovement import TransitionApprovement
 
 
 __author__ = 'ahmetdal'

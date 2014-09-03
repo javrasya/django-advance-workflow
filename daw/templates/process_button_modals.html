@@ -106,16 +106,12 @@
             $('#idYesSure').click(function () {
                 var obj_pk = $('#idDawAreYouSure').data('id')
                 var next_state_id = $('#idDawAreYouSure').data('state_id')
-                if (next_state_id) {
-                    next_state_id = '/' + next_state_id
-                }
-                else {
-                    next_state_id = ''
-                }
-                var approveUri = {% with cls|content_type as ct %}"{% url 'daw.views.approve_transition_view' ct.pk 'arg2' state_field request.build_absolute_uri|urlencode:"" 'arg5' %}".replace
-                    (/arg2/, obj_pk).replace(/\/arg5/, next_state_id){% endwith %};
+                {#                var approveUri = {% with cls|content_type as ct %}"{% url 'daw.views.approve_transition_view' ct.pk 'arg2' state_field request.build_absolute_uri|urlencode:"" 'arg5' %}".replace#}
+                {#                    (/arg2/, obj_pk).replace(/\/arg5/, next_state_id){% endwith %};#}
 
-                window.location = approveUri
+                {% with cls|content_type as ct %}processTransition(APPROVE, "{{ request.build_absolute_uri }}", "{{ ct.pk }}", obj_pk, "{{ state_field }}", next_state_id){% endwith %}
+
+                {#                window.location = approveUri#}
             })
 
         })

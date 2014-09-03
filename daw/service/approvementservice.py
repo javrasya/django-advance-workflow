@@ -3,7 +3,7 @@ from django.db.models import Min, Q
 from daw.service.stateservice import StateService
 
 from daw.utils import middleware
-from daw.models import State
+from daw.models.state import State
 from daw.models.transitionapprovedefinition import TransitionApproveDefinition
 from daw.models.transitionapprovement import TransitionApprovement, PENDING
 
@@ -95,7 +95,6 @@ class ApprovementService:
         else:
             source_state_pks = approvements.values_list('approve_definition__transition__destination_state', flat=True)
             return ApprovementService.get_approvements_object_waiting_for_approval(obj, State.objects.filter(pk__in=source_state_pks), include_user=False)
-
 
 
     @staticmethod

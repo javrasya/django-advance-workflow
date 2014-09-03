@@ -1,8 +1,9 @@
 from django.contrib.auth.models import User
 from mock import MagicMock
+from daw.models.state import State
+from daw.tests.models import TestModel
 
 from daw.utils import middleware
-from daw.tests.models import State, TestModel
 from daw.service.stateservice import StateService
 from daw.tests import BaseTestCase
 
