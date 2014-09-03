@@ -1,10 +1,9 @@
-from daw.models.metaclasses.workflow_model_metaclass import ModifiedModelMetaclass
+from daw.models.metaclasses.workflow_model_metaclass import WorkflowModelMetaclass
 
 __author__ = 'ahmetdal'
 
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
-from django.db.models.signals import post_save, pre_save
 
 from daw.models import TransitionApprovement, State
 from daw.service.approvementservice import ApprovementService
@@ -23,7 +22,7 @@ class StateField(models.ForeignKey):
 
         super(StateField, self).contribute_to_class(cls, name, virtual_only=virtual_only)
 
-        self.model.__metaclass__ = ModifiedModelMetaclass
+        self.model.__metaclass__ = WorkflowModelMetaclass
         # pre_save.connect(self._pre_save, cls, False)
         # post_save.connect(self._post_save, cls, False)
 
