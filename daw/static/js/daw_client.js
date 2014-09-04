@@ -16,14 +16,6 @@
  *
  * */
 
-var BEFORE_PROCESS = 'before_process';
-var AFTER_PROCESS = 'after_process';
-var WAITING_TRANSITION_PROCESSES = [];
-
-var PROCESS_EVENTS = [];
-
-var APPROVE = 'APPROVE';
-var REJECT = 'REJECT';
 
 Array.prototype.updateOrPush = function (filter, defaults) {
     var results = $.grep(this, function (e) {
@@ -71,45 +63,57 @@ Array.prototype.getElementsBy = function (filter) {
 };
 
 
-function registerTransitionProcess(type, contentTypeId, objectId, field, nextStateId, callbackUri) {
-    var currentState = getCurrentState(contentTypeId, objectId, field);
+var DawClient = function () {
+}
+
+DawClient.BEFORE_PROCESS = 'before_process';
+DawClient.AFTER_PROCESS = 'after_process';
+DawClient.WAITING_TRANSITION_PROCESSES = [];
+
+DawClient.PROCESS_EVENTS = [];
+
+DawClient.APPROVE = 'APPROVE';
+DawClient.REJECT = 'REJECT';
+
+DawClient.registerTransitionProcess = function (type, contentTypeId, objectId, field, nextStateId, callbackUri) {
+    var currentState = DawClient.getCurrentState(contentTypeId, objectId, field);
     var filter = {contentTypeId: contentTypeId, objectId: objectId, field: field, currentStateId: currentState.id, nextStateId: nextStateId};
     var defaults = {type: type, callbackUri: callbackUri}
     if (nextStateId) {
         defaults['nextStateId'] = nextStateId
     }
-    WAITING_TRANSITION_PROCESSES.updateOrPush(filter, defaults);
+    DawClient.WAITING_TRANSITION_PROCESSES.updateOrPush(filter, defaults);
 
 }
-function unRegisterTransitionProcess(contentTypeId, objectId, field, nextStateId) {
-    var currentState = getCurrentState(contentTypeId, objectId, field);
-    WAITING_TRANSITION_PROCESSES = WAITING_TRANSITION_PROCESSES.removeElementBy({contentTypeId: contentTypeId, objectId: objectId, field: field, currentStateId: currentState.id, nextStateId: nextStateId})
+DawClient.unRegisterTransitionProcess = function (contentTypeId, objectId, field, nextStateId) {
+    var currentState = DawClient.getCurrentState(contentTypeId, objectId, field);
+    DawClient.WAITING_TRANSITION_PROCESSES = DawClient.WAITING_TRANSITION_PROCESSES.removeElementBy({contentTypeId: contentTypeId, objectId: objectId, field: field, currentStateId: currentState.id, nextStateId: nextStateId})
 }
 
 
-function getTransitionProcesses(contentTypeId, objectId, field, nextStateId) {
-    var currentState = getCurrentState(contentTypeId, objectId, field);
+DawClient.getTransitionProcesses = function (contentTypeId, objectId, field, nextStateId) {
+    var currentState = DawClient.getCurrentState(contentTypeId, objectId, field);
     var filter = {contentTypeId: contentTypeId, objectId: objectId, field: field, currentStateId: currentState.id}
     if (nextStateId) {
         filter['nextStateId'] = nextStateId
     }
-    return WAITING_TRANSITION_PROCESSES.getElementsBy(filter)
+    return DawClient.WAITING_TRANSITION_PROCESSES.getElementsBy(filter)
 }
 
-function commitLastTransitionProcess(contentTypeId, objectId, field) {
-    var result = $.grep(WAITING_TRANSITION_PROCESSES.getElementsBy(
+DawClient.commitLastTransitionProcess = function (contentTypeId, objectId, field) {
+    var result = $.grep(DawClient.WAITING_TRANSITION_PROCESSES.getElementsBy(
         {
             contentTypeId: contentTypeId,
             objectId: objectId,
             field: field
         }), function (e) {
-        return e.date >= Math.max.apply(Math, WAITING_TRANSITION_PROCESSES.map(function (o) {
+        return e.date >= Math.max.apply(Math, DawClient.WAITING_TRANSITION_PROCESSES.map(function (o) {
             return o.date;
         }))
     });
     if (result.length) {
         var waitingTransitionProcess = result[0];
-        commitTransitionProcess.apply(undefined, [
+        DawClient.commitTransitionProcess.apply(undefined, [
             waitingTransitionProcess.type,
             waitingTransitionProcess.contentTypeId,
             waitingTransitionProcess.objectId,
@@ -121,15 +125,15 @@ function commitLastTransitionProcess(contentTypeId, objectId, field) {
     }
 }
 
-function redirectUri(uri) {
+DawClient.redirectUri = function (uri) {
     window.location = uri
 }
 
-function commitTransitionProcess(contentTypeId, objectId, field, currentStateId, nextStateId) {
-    var waitingTransitionProcess = getTransitionProcesses(contentTypeId, objectId, field, currentStateId, nextStateId);
+DawClient.commitTransitionProcess = function (contentTypeId, objectId, field, currentStateId, nextStateId) {
+    var waitingTransitionProcess = DawClient.getTransitionProcesses(contentTypeId, objectId, field, currentStateId, nextStateId);
     if (waitingTransitionProcess.length) {
         waitingTransitionProcess = waitingTransitionProcess[0]
-        processTransition.apply(undefined, [
+        DawClient.processTransition.apply(undefined, [
             waitingTransitionProcess.type,
             waitingTransitionProcess.callbackUri,
             waitingTransitionProcess.contentTypeId,
@@ -146,7 +150,7 @@ function commitTransitionProcess(contentTypeId, objectId, field, currentStateId,
 }
 
 
-function registerProcessCallBack(type, sourceStateId, destinationStateId, fn, contentTypeId, objectId, field) {
+DawClient.registerProcessCallBack = function (type, sourceStateId, destinationStateId, fn, contentTypeId, objectId, field) {
     var filter = {type: type, sourceStateId: sourceStateId, destinationStateId: destinationStateId}
     if (contentTypeId) {
         filter['contentTypeId'] = contentTypeId;
@@ -158,10 +162,10 @@ function registerProcessCallBack(type, sourceStateId, destinationStateId, fn, co
         filter['field'] = field;
     }
     var defaults = {type: type, fn: fn};
-    PROCESS_EVENTS.updateOrPush(filter, defaults);
+    DawClient.PROCESS_EVENTS.updateOrPush(filter, defaults);
 }
 
-function unRegisterProcessCallBack(type, sourceStateId, destinationStateId, contentTypeId, objectId, field) {
+DawClient.unRegisterProcessCallBack = function (type, sourceStateId, destinationStateId, contentTypeId, objectId, field) {
     var filter = {type: type, sourceStateId: sourceStateId, destinationStateId: destinationStateId}
     if (contentTypeId) {
         filter['contentTypeId'] = contentTypeId;
@@ -172,12 +176,12 @@ function unRegisterProcessCallBack(type, sourceStateId, destinationStateId, cont
     if (field) {
         filter['field'] = field;
     }
-    PROCESS_EVENTS = PROCESS_EVENTS.removeElementBy(filter)
+    DawClient.PROCESS_EVENTS = DawClient.PROCESS_EVENTS.removeElementBy(filter)
 
 }
 
 
-function getProcessCallBacks(type, sourceStateId, destinationStateId, contentTypeId, objectId, field) {
+DawClient.getProcessCallBacks = function (type, sourceStateId, destinationStateId, contentTypeId, objectId, field) {
     var filter = {type: type, sourceStateId: sourceStateId, destinationStateId: destinationStateId}
 
     if (contentTypeId) {
@@ -189,14 +193,14 @@ function getProcessCallBacks(type, sourceStateId, destinationStateId, contentTyp
     if (field) {
         filter['field'] = field;
     }
-    return PROCESS_EVENTS.getElementsBy(filter)
+    return DawClient.PROCESS_EVENTS.getElementsBy(filter)
 }
 
 
-function invokeProcessCallback(type, currentStateId, nextStateId, contentTypeId, objectId, field, callback) {
-    var processCallBacks = getProcessCallBacks(type, currentStateId, nextStateId, contentTypeId, objectId, field)
-    processCallBacks = processCallBacks.concat(getProcessCallBacks(type, currentStateId, nextStateId, contentTypeId, null, null))
-    processCallBacks = processCallBacks.concat(getProcessCallBacks(type, currentStateId, nextStateId, null, null, null))
+DawClient.invokeProcessCallback = function (type, currentStateId, nextStateId, contentTypeId, objectId, field, callback) {
+    var processCallBacks = DawClient.getProcessCallBacks(type, currentStateId, nextStateId, contentTypeId, objectId, field)
+    processCallBacks = processCallBacks.concat(DawClient.getProcessCallBacks(type, currentStateId, nextStateId, contentTypeId, null, null))
+    processCallBacks = processCallBacks.concat(DawClient.getProcessCallBacks(type, currentStateId, nextStateId, null, null, null))
     var results = [];
     if (processCallBacks.length) {
         for (i in processCallBacks) {
@@ -219,13 +223,14 @@ function invokeProcessCallback(type, currentStateId, nextStateId, contentTypeId,
 }
 
 
-function getParameterizedUri(uri, args) {
+DawClient.getParameterizedUri = function (uri, args) {
     for (i in args) {
         var argument = args[i]
         uri = uri.replace('$' + i, argument)
     }
     return uri;
 }
+
 
 /*
  *
@@ -234,8 +239,8 @@ function getParameterizedUri(uri, args) {
  * */
 
 
-function getAvailableStates(contentTypeId, objectId, field) {
-    var uri = getParameterizedUri(GETTING_AVAILABLE_STATES_URI, arguments)
+DawClient.getAvailableStates = function (contentTypeId, objectId, field) {
+    var uri = DawClient.getParameterizedUri(GETTING_AVAILABLE_STATES_URI, arguments)
     //TODO: do ajax request;
     $.ajax({
                type: "GET",
@@ -251,9 +256,9 @@ function getAvailableStates(contentTypeId, objectId, field) {
            });
 }
 
-function getCurrentState(contentTypeId, objectId, field) {
-    var uri = getParameterizedUri(GETTING_CURRENT_STATE_URI, arguments)
-    var result;
+DawClient.getCurrentState = function (contentTypeId, objectId, field) {
+    var uri = DawClient.getParameterizedUri(GETTING_CURRENT_STATE_URI, arguments)
+    var result = {};
 
     $.ajax({
                type: "GET",
@@ -271,24 +276,24 @@ function getCurrentState(contentTypeId, objectId, field) {
 }
 
 
-function processTransition(type, callbackUri, contentTypeId, objectId, field, nextStateId, skipBeforeAction, currentStateId) {
+DawClient.processTransition = function (type, callbackUri, contentTypeId, objectId, field, nextStateId, skipBeforeAction, currentStateId) {
     skipBeforeAction = typeof skipBeforeAction !== 'undefined' ? skipBeforeAction : false;
-    currentStateId = typeof currentStateId !== 'undefined' ? currentStateId : getCurrentState(contentTypeId, objectId, field).id;
+    currentStateId = typeof currentStateId !== 'undefined' ? currentStateId : DawClient.getCurrentState(contentTypeId, objectId, field).id;
 
     var uri = null;
-    if (type == APPROVE) {
+    if (type == DawClient.APPROVE) {
         uri = APPROVE_TRANSITION_URI
     }
-    else if (type == REJECT) {
+    else if (type == DawClient.REJECT) {
         uri = REJECT_TRANSITION_URI
     }
-    uri = getParameterizedUri(uri, Array.prototype.slice.call(arguments, 2))
+    uri = DawClient.getParameterizedUri(uri, Array.prototype.slice.call(arguments, 2))
 
 
     var anyInvocation = false;
     if (!skipBeforeAction) {
-        var result = invokeProcessCallback(BEFORE_PROCESS, currentStateId, nextStateId, contentTypeId, objectId, field, function () {
-            commitLastTransitionProcess(contentTypeId, objectId, field)
+        var result = DawClient.invokeProcessCallback(DawClient.BEFORE_PROCESS, currentStateId, nextStateId, contentTypeId, objectId, field, function () {
+            DawClient.commitLastTransitionProcess(contentTypeId, objectId, field)
         });
         anyInvocation = result[0]
     }
@@ -298,8 +303,8 @@ function processTransition(type, callbackUri, contentTypeId, objectId, field, ne
                    url: uri,
                    dataType: 'json',
                    success: function (data) {
-                       invokeProcessCallback(AFTER_PROCESS, currentStateId, nextStateId, contentTypeId, objectId, field, function () {
-                           redirectUri(callbackUri)
+                       DawClient.invokeProcessCallback(DawClient.AFTER_PROCESS, currentStateId, nextStateId, contentTypeId, objectId, field, function () {
+                           DawClient.redirectUri(callbackUri)
                        })
                    },
                    error: function (err, data) {
@@ -308,14 +313,14 @@ function processTransition(type, callbackUri, contentTypeId, objectId, field, ne
                    }
                });
     } else {
-        registerTransitionProcess(BEFORE_PROCESS, contentTypeId, objectId, field, nextStateId, callbackUri)
+        DawClient.registerTransitionProcess(DawClient.BEFORE_PROCESS, contentTypeId, objectId, field, nextStateId, callbackUri)
     }
 }
 
 
-function getStateByLabel(stateLabel) {
-    var uri = getParameterizedUri(GET_STATE_BY_LABEL_URI, arguments)
-    var result;
+DawClient.getStateByLabel = function (stateLabel) {
+    var uri = DawClient.getParameterizedUri(GET_STATE_BY_LABEL_URI, arguments)
+    var result = {};
     $.ajax({
                type: "GET",
                url: uri,

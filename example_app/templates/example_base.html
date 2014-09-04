@@ -28,12 +28,11 @@
         var APPROVE_TRANSITION_URI = "{% url 'daw.views.approve_transition_view' '$0' '$1' '$2' '$3' %}".replace(/%24/g, '$')
         var REJECT_TRANSITION_URI = "{% url 'daw.views.reject_transition_view' '$0' '$1' '$2' '$3' %}".replace(/%24/g, '$')
         var GET_STATE_BY_LABEL_URI = "{% url 'daw.views.get_state_by_label' '$0' %}".replace(/%24/g, '$')
-        registerProcessCallBack(BEFORE_PROCESS, getStateByLabel('s1').id, getStateByLabel('s2').id, function (data) {
+        DawClient.registerProcessCallBack(DawClient.BEFORE_PROCESS, DawClient.getStateByLabel('s1').id, DawClient.getStateByLabel('s2').id, function (data) {
             alert('Before Done!');
             data.callback()
         })
-        registerProcessCallBack(AFTER_PROCESS, getStateByLabel('s1').id, getStateByLabel('s2').id, function (data) {
-            alert(arguments);
+        DawClient.registerProcessCallBack(DawClient.AFTER_PROCESS, DawClient.getStateByLabel('s1').id, DawClient.getStateByLabel('s2').id, function (data) {
             alert('After Done!');
             data.callback()
         })
