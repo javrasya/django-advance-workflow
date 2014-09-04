@@ -92,29 +92,25 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
+
+path = os.getcwd()
+fileSeparator = os.sep
+
+# URL prefix for static files.
+# Example: "http://example.com/static/", "http://static.example.com/"
+STATIC_URL = '/etc/static_collected/'
+# https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-STATIC_ROOT
+STATIC_ROOT = os.path.join(BASE_DIR, 'etc/static')
+
+ETC_URL = BASE_DIR + '/etc/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'etc/static_collected'),
+)
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
-path = os.getcwd()
-fileSeparator = os.sep
-STATIC_ROOT = ''
-
-# URL prefix for static files.
-# Example: "http://example.com/static/", "http://static.example.com/"
-STATIC_URL = '/static/'
-
-# Additional locations of static files
-STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    path + fileSeparator + 'static',
-)
-
-STATICFILES_FINDERS = STATICFILES_FINDERS
-
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -151,6 +147,8 @@ from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 
 TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'django.core.context_processors.request',
+    'django.core.context_processors.static',
+
 )
 
 

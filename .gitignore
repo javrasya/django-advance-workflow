@@ -16,3 +16,9 @@ venv
 build
 docs/_build
 *sqlite*
+/etc/static_collected/
+/etc/dist/
+/etc/node_modules/
+/ttnet/my/
+/etc/.tmp/
+*.log
