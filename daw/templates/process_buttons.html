@@ -10,7 +10,7 @@
                 currentStates = {}
             }
             currentStates[{{ obj_pk }}] =
-            nextStates[{{ obj_pk }}] = []
+                    nextStates[{{ obj_pk }}] = []
 
             {% for approvement in approvements %}
                 nextStates[{{ obj_pk }}].push([{{ approvement.approve_definition.transition.destination_state.pk }}, "{{ approvement.approve_definition.transition.destination_state.label }}"])
@@ -20,10 +20,10 @@
     </script>
     {% if approvements.count > 0 %}
         {% if approve_button_text %}
-            <a data-id="{{ obj_pk }}" title="{{ approve_button_text }}" class="btn btn-primary dawApproveNextState" href="">{{ approve_button_text }}</a>
+            <a data-id="{{ obj_pk }}" title="{{ approve_button_text }}" class="btn btn-primary dawApproveNextState">{{ approve_button_text }}</a>
         {% endif %}
         {% if reject_button_text %}
-            <a data-id="{{ obj_pk }}" title="{{ approve_button_text }}" class="btn btn-primary dawRejectNextState" href="">{{ reject_button_text }}</a>
+            <a data-id="{{ obj_pk }}" title="{{ approve_button_text }}" class="btn btn-primary dawRejectNextState">{{ reject_button_text }}</a>
         {% endif %}
     {% endif %}
 {% endblock %}
