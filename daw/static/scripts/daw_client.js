@@ -21,8 +21,8 @@
 /*jshint indent: false */
 /*jshint undef: false */
 
-Array.prototype.updateOrPush = function (filter, defaults) {
-    var results = $.grep(this, function (e) {
+var updateOrPush = function (array, filter, defaults) {
+    var results = $.grep(array, function (e) {
         var r = true;
         for (var k in filter) {
             if (e[k] !== filter[k]) {
@@ -38,12 +38,12 @@ Array.prototype.updateOrPush = function (filter, defaults) {
     });
 
     if (!results.length) {
-        this.push($.extend(filter, defaults));
+        array.push($.extend(filter, defaults));
     }
 };
 
-Array.prototype.removeElementBy = function (filter) {
-    return $.grep(this, function (e) {
+var removeElementBy = function (array, filter) {
+    return $.grep(array, function (e) {
         var r = false;
         for (var k in filter) {
             if (e[k] !== filter[k]) {
@@ -54,8 +54,8 @@ Array.prototype.removeElementBy = function (filter) {
     });
 };
 
-Array.prototype.getElementsBy = function (filter) {
-    return $.grep(this, function (e) {
+var getElementsBy = function (array, filter) {
+    return $.grep(array, function (e) {
         var r = true;
         for (var k in filter) {
             if (e[k] !== filter[k]) {
@@ -94,7 +94,7 @@ DawClient.registerTransitionProcess = function (type, contentTypeId, objectId, f
     if (nextStateId) {
         defaults.nextStateId = nextStateId;
     }
-    DawClient.WAITING_TRANSITION_PROCESSES.updateOrPush(filter, defaults);
+    updateOrPush(DawClient.WAITING_TRANSITION_PROCESSES, filter, defaults);
 };
 
 DawClient.getTransitionProcesses = function (contentTypeId, objectId, field, nextStateId) {
@@ -103,13 +103,13 @@ DawClient.getTransitionProcesses = function (contentTypeId, objectId, field, nex
     if (nextStateId) {
         filter.nextStateId = nextStateId;
     }
-    return DawClient.WAITING_TRANSITION_PROCESSES.getElementsBy(filter);
+    return getElementsBy(DawClient.WAITING_TRANSITION_PROCESSES, filter);
 };
 
 
 DawClient.unRegisterTransitionProcess = function (contentTypeId, objectId, field, nextStateId) {
     var currentState = DawClient.getCurrentState(contentTypeId, objectId, field);
-    DawClient.WAITING_TRANSITION_PROCESSES = DawClient.WAITING_TRANSITION_PROCESSES.removeElementBy({contentTypeId: contentTypeId, objectId: objectId, field: field, currentStateId: currentState.id, nextStateId: nextStateId});
+    DawClient.WAITING_TRANSITION_PROCESSES = removeElementBy(DawClient.WAITING_TRANSITION_PROCESSES, {contentTypeId: contentTypeId, objectId: objectId, field: field, currentStateId: currentState.id, nextStateId: nextStateId});
 };
 
 
@@ -177,7 +177,7 @@ DawClient.registerProcessCallBack = function (type, sourceStateId, destinationSt
         filter.field = field;
     }
     var defaults = {fn: fn};
-    DawClient.PROCESS_CALLBACK_EVENTS.updateOrPush(filter, defaults);
+    updateOrPush(DawClient.PROCESS_CALLBACK_EVENTS, filter, defaults);
 };
 
 DawClient.unRegisterProcessCallBack = function (type, sourceStateId, destinationStateId, contentTypeId, objectId, field) {
@@ -191,7 +191,7 @@ DawClient.unRegisterProcessCallBack = function (type, sourceStateId, destination
     if (field) {
         filter.field = field;
     }
-    DawClient.PROCESS_CALLBACK_EVENTS = DawClient.PROCESS_CALLBACK_EVENTS.removeElementBy(filter);
+    DawClient.PROCESS_CALLBACK_EVENTS = removeElementBy(DawClient.PROCESS_CALLBACK_EVENTS, filter);
 
 };
 
@@ -208,7 +208,7 @@ DawClient.getProcessCallBacks = function (type, sourceStateId, destinationStateI
     if (field) {
         filter.field = field;
     }
-    return DawClient.PROCESS_CALLBACK_EVENTS.getElementsBy(filter);
+    return getElementsBy(DawClient.PROCESS_CALLBACK_EVENTS, filter);
 };
 
 
@@ -220,22 +220,20 @@ DawClient.invokeProcessCallback = function (type, currentStateId, nextStateId, c
         return JSON.stringify(e);
     });
     var results = [];
-    if (processCallBacks.length) {
-        for (var i in processCallBacks) {
-            var processCallBack = processCallBacks[i];
-            if (processCallBack.fn) {
-                results.push(processCallBack.fn.call(undefined, {
-                    type: type,
-                    currentStateId: currentStateId,
-                    nextStateId: nextStateId,
-                    contentTypeId: contentTypeId,
-                    objectId: objectId,
-                    field: field,
-                    callback: callback
-                }));
-            }
-
+    for (var i in processCallBacks) {
+        var processCallBack = processCallBacks[i];
+        if (processCallBack.fn) {
+            results.push(processCallBack.fn.call(undefined, {
+                type: type,
+                currentStateId: currentStateId,
+                nextStateId: nextStateId,
+                contentTypeId: contentTypeId,
+                objectId: objectId,
+                field: field,
+                callback: callback
+            }));
         }
+
     }
     return [processCallBacks.length !== 0, results];
 };
