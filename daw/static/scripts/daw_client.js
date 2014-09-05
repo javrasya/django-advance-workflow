@@ -384,9 +384,13 @@ DawClient.processTransition = function (type, callbackUri, contentTypeId, object
                 url: uri,
                 dataType: 'json',
                 success: function () {
-                    DawClient.invokeProcessCallback(DawClient.AFTER_PROCESS, currentStateId, nextStateId, contentTypeId, objectId, field, function () {
+                    var result = DawClient.invokeProcessCallback(DawClient.AFTER_PROCESS, currentStateId, nextStateId, contentTypeId, objectId, field, function () {
                         DawClient.redirectUri(callbackUri);
                     });
+                    var anyInvocation = result[0];
+                    if (!anyInvocation) {
+                        DawClient.redirectUri(callbackUri);
+                    }
                 },
                 error: function (err) {
                     throw err;
