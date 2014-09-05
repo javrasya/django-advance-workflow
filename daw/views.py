@@ -51,13 +51,18 @@ def get_state_by_label(request, label):
 
 def skip_transition(request, content_type_id, object_id, state_field, destination_state_id):
     try:
-        state = TransitionApprovement.objects.filter(
+        qs = TransitionApprovement.objects.filter(
             content_type__pk=content_type_id,
             object_pk=object_id,
-            approve_definition__transition__destination_state__pk=destination_state_id).update(skip=True)
-        return HttpResponse(json.dumps({'id': state.pk, 'label': state.label}), content_type='application/json')
+            approve_definition__transition__destination_state__pk=destination_state_id)
+        if qs:
+            qs.update(skip=True)
+            return HttpResponse(json.dumps({}), content_type='application/json')
+        else:
+            return HttpResponseBadRequest(reason="There is no transition to be skipped.", content_type='application/json')
+
     except Exception, e:
-        return HttpResponseBadRequest(json.dumps({'error_message': e.message}), content_type='application/json')
+        return HttpResponseBadRequest(reason=e.message, content_type='application/json')
 
 
 def _get_decoded_callback_url(url):

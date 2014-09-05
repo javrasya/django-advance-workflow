@@ -98,13 +98,16 @@ fileSeparator = os.sep
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
-STATIC_URL = '/etc/static_collected/'
+STATIC_URL = '/etc/static/'
 # https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-STATIC_ROOT
-STATIC_ROOT = os.path.join(BASE_DIR, 'etc/static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'etc/static_collected')
 
-ETC_URL = BASE_DIR + '/etc/'
+# Additional locations of static files
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'etc/static_collected'),
+    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    path + fileSeparator + 'etc/static',
 )
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',

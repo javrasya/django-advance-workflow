@@ -85,6 +85,7 @@ DawClient.GETTING_CURRENT_STATE_URI = 'GETTING_CURRENT_STATE_URI';
 DawClient.APPROVE_TRANSITION_URI = 'APPROVE_TRANSITION_URI';
 DawClient.REJECT_TRANSITION_URI = 'REJECT_TRANSITION_URI';
 DawClient.GET_STATE_BY_LABEL_URI = 'GET_STATE_BY_LABEL_URI';
+DawClient.SKIP_TRANSITION_URI = 'SKIP_TRANSITION_URI';
 
 DawClient.registerTransitionProcess = function (type, contentTypeId, objectId, field, nextStateId, callbackUri) {
     var currentState = DawClient.getCurrentState(contentTypeId, objectId, field);
@@ -396,13 +397,22 @@ DawClient.processTransition = function (type, callbackUri, contentTypeId, object
 };
 
 
-
-
-
-
-
-
-
+DawClient.skipTransition = function (contentTypeId, objectId, field, destinationStateId, async) {
+    async = async ? async : true;
+    var uri = DawClient.getParameterizedUri(DawClient.SKIP_TRANSITION_URI, arguments);
+    $.ajax(
+        {
+            type: 'GET',
+            url: uri,
+            dataType: 'json',
+            async: async,
+            success: function () {
+            },
+            error: function (err) {
+                throw err;
+            }
+        });
+};
 
 
 
