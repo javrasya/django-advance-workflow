@@ -16,7 +16,7 @@ urlpatterns = patterns('daw.views',
                        url(
                            r'^get_state_by_label/(?P<label>[$a-zA-Z0-9]+)/?$', 'get_state_by_label'),
                        url(
-                           r'^skip_transition/(?P<content_type_id>[$a-zA-Z0-9]+)/(?P<object_id>[$a-zA-Z0-9]+)/(?P<state_field>[$a-zA-Z0-9_]+)/(?P<destination_state_id>[$a-zA-Z0-9]+)/?$',
+                           r'^skip_transition/(?P<content_type_id>[$a-zA-Z0-9]+)/(?P<object_id>[$a-zA-Z0-9]+)/(?P<state_field>[$a-zA-Z0-9_]+)/?$',
                            'skip_transition'),
 
 )

@@ -4,6 +4,8 @@ import urllib
 from django.contrib.contenttypes.models import ContentType
 
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseBadRequest
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
 from daw.models import State
 from daw.models.transitionapprovement import TransitionApprovement
 
@@ -49,12 +51,15 @@ def get_state_by_label(request, label):
     return HttpResponse(json.dumps({'id': state.pk, 'label': state.label}), content_type='application/json')
 
 
-def skip_transition(request, content_type_id, object_id, state_field, destination_state_id):
+@csrf_exempt
+@require_http_methods(["POST"])
+def skip_transition(request, content_type_id, object_id, state_field):
     try:
+        destination_state_ids = request.POST.get('destinationStateIds', [-1])
         qs = TransitionApprovement.objects.filter(
             content_type__pk=content_type_id,
             object_pk=object_id,
-            approve_definition__transition__destination_state__pk=destination_state_id)
+            approve_definition__transition__destination_state__pk__in=destination_state_ids)
         if qs:
             qs.update(skip=True)
             return HttpResponse(json.dumps({}), content_type='application/json')

@@ -32,7 +32,7 @@
         DawClient.APPROVE_TRANSITION_URI = "{% url 'daw.views.approve_transition_view' '$0' '$1' '$2' '$3' %}".replace(/%24/g, '$');
         DawClient.REJECT_TRANSITION_URI = "{% url 'daw.views.reject_transition_view' '$0' '$1' '$2' '$3' %}".replace(/%24/g, '$');
         DawClient.GET_STATE_BY_LABEL_URI = "{% url 'daw.views.get_state_by_label' '$0' %}".replace(/%24/g, '$');
-        DawClient.SKIP_TRANSITION_URI = "{% url 'daw.views.skip_transition' '$0' '$1' '$2' '$3' %}".replace(/%24/g, '$');
+        DawClient.SKIP_TRANSITION_URI = "{% url 'daw.views.skip_transition' '$0' '$1' '$2' %}".replace(/%24/g, '$');
 
         DawClient.registerProcessCallBack(DawClient.BEFORE_PROCESS, DawClient.getStateByLabel('s1').id, DawClient.getStateByLabel('s2').id, function (data) {
             alert('Before Done!');

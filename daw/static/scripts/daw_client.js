@@ -397,14 +397,19 @@ DawClient.processTransition = function (type, callbackUri, contentTypeId, object
 };
 
 
-DawClient.skipTransition = function (contentTypeId, objectId, field, destinationStateId, async) {
+DawClient.skipTransition = function (contentTypeId, objectId, field, destinationStateIds, async) {
     async = async ? async : true;
     var uri = DawClient.getParameterizedUri(DawClient.SKIP_TRANSITION_URI, arguments);
+    var postData = {
+        destinationStateIds: destinationStateIds
+    };
     $.ajax(
         {
-            type: 'GET',
+            type: 'POST',
             url: uri,
             dataType: 'json',
+            data: JSON.stringify(postData),
+            contentType: "application/json; charset=utf-8",
             async: async,
             success: function () {
             },
