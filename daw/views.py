@@ -55,7 +55,7 @@ def get_state_by_label(request, label):
 @require_http_methods(["POST"])
 def skip_transition(request, content_type_id, object_id, state_field):
     try:
-        destination_state_ids = request.POST.get('destinationStateIds', [-1])
+        destination_state_ids = json.loads(request.body).get('destinationStateIds', [-1])
         qs = TransitionApprovement.objects.filter(
             content_type__pk=content_type_id,
             object_pk=object_id,
