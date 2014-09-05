@@ -411,7 +411,7 @@ DawClient.skipTransition = function (contentTypeId, objectId, field, destination
             url: uri,
             dataType: 'json',
             data: JSON.stringify(postData),
-            contentType: 'application/json; charset=utf-8',
+            contentType: 'application/json',
             async: false,
             success: function () {
                 result = true;
