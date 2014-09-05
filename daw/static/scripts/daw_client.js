@@ -401,12 +401,13 @@ DawClient.processTransition = function (type, callbackUri, contentTypeId, object
 };
 
 
-DawClient.skipTransition = function (contentTypeId, objectId, field, destinationStateIds, async) {
+DawClient.skipTransition = function (contentTypeId, objectId, field, destinationStateIds) {
     async = async ? async : true;
     var uri = DawClient.getParameterizedUri(DawClient.SKIP_TRANSITION_URI, arguments);
     var postData = {
         destinationStateIds: destinationStateIds
     };
+    var result = false;
     $.ajax(
         {
             type: 'POST',
@@ -416,11 +417,14 @@ DawClient.skipTransition = function (contentTypeId, objectId, field, destination
             contentType: "application/json; charset=utf-8",
             async: async,
             success: function () {
+                result = true;
             },
             error: function (err) {
                 throw err;
             }
         });
+
+    return result;
 };
 
 
