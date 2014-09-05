@@ -110,7 +110,7 @@
                 {#                    (/arg2/, obj_pk).replace(/\/arg5/, next_state_id){% endwith %};#}
 
                 {% with cls|content_type as ct %}DawClient.processTransition
-                    (DawClient.APPROVE, "{{ request.build_absolute_uri }}", "{{ ct.pk }}", obj_pk, "{{ state_field }}", next_state_id){% endwith %}
+                    (DawClient.APPROVE, null, "{{ ct.pk }}", obj_pk, "{{ state_field }}", next_state_id){% endwith %}
 
                 {#                window.location = approveUri#}
             })

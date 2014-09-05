@@ -161,7 +161,11 @@ DawClient.commitTransitionProcess = function (contentTypeId, objectId, field, cu
 
 
 DawClient.redirectUri = function (uri) {
-    window.location = uri;
+    if (window.location = uri) {
+        window.location.reload()
+    } else {
+        window.location = uri;
+    }
 };
 
 
@@ -356,7 +360,7 @@ DawClient.getStateByLabel = function () {
 DawClient.processTransition = function (type, callbackUri, contentTypeId, objectId, field, nextStateId, skipBeforeAction, currentStateId) {
     skipBeforeAction = typeof skipBeforeAction !== 'undefined' ? skipBeforeAction : false;
     currentStateId = typeof currentStateId !== 'undefined' ? currentStateId : DawClient.getCurrentState(contentTypeId, objectId, field).id;
-
+    callbackUri = typeof callbackUri !== undefined && callbackUri !== null ? callbackUri : window.location;
     var uri = null;
     if (type === DawClient.APPROVE) {
         uri = DawClient.APPROVE_TRANSITION_URI;
