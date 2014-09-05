@@ -400,7 +400,6 @@ DawClient.processTransition = function (type, callbackUri, contentTypeId, object
 
 
 DawClient.skipTransition = function (contentTypeId, objectId, field, destinationStateIds) {
-    async = async ? async : true;
     var uri = DawClient.getParameterizedUri(DawClient.SKIP_TRANSITION_URI, arguments);
     var postData = {
         destinationStateIds: destinationStateIds

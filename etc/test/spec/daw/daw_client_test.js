@@ -184,7 +184,7 @@ describe('DawClient', function () {
                                callback: undefined
                            }));
 
-        expect(redirected).toBeFalsy()
+        expect(redirected).toBeFalsy();
 
     });
 
@@ -222,7 +222,7 @@ describe('DawClient', function () {
                                callback: undefined
                            }));
 
-        expect(redirected).toBeFalsy()
+        expect(redirected).toBeFalsy();
     });
     it('Process Transition Without Invoke Callback Function', function () {
         redirected = false;
@@ -235,7 +235,7 @@ describe('DawClient', function () {
         DawClient.processTransition(DawClient.APPROVE, expectedCallbackUri, expectedContentTypeId, expectedObjectId, expectedField, expectedNextStateId);
         expect(DawClient.WAITING_TRANSITION_PROCESSES.length).toBe(1);
 
-        expect(redirected).toBeFalsy()
+        expect(redirected).toBeFalsy();
 
     });
     it('Process Transition With Invoke Before Callback Function', function () {
@@ -251,7 +251,7 @@ describe('DawClient', function () {
         DawClient.processTransition(DawClient.APPROVE, expectedCallbackUri, expectedContentTypeId, expectedObjectId, expectedField, expectedNextStateId);
 
         expect(DawClient.WAITING_TRANSITION_PROCESSES.length).toBe(0);
-        expect(redirected).toBeFalsy()
+        expect(redirected).toBeFalsy();
     });
 
     it('Process Transition With Invoke After Callback Function', function () {
@@ -267,7 +267,7 @@ describe('DawClient', function () {
         DawClient.processTransition(DawClient.APPROVE, expectedCallbackUri, expectedContentTypeId, expectedObjectId, expectedField, expectedNextStateId);
 
         expect(DawClient.WAITING_TRANSITION_PROCESSES.length).toBe(0);
-        expect(redirected).toBeTruthy()
+        expect(redirected).toBeTruthy();
     });
 
     it('Process Transition With No Before and After Callback Function', function () {
@@ -276,6 +276,6 @@ describe('DawClient', function () {
         expect(DawClient.WAITING_TRANSITION_PROCESSES.length).toBe(0);
         DawClient.processTransition(DawClient.APPROVE, expectedCallbackUri, expectedContentTypeId, expectedObjectId, expectedField, expectedNextStateId);
         expect(DawClient.WAITING_TRANSITION_PROCESSES.length).toBe(0);
-        expect(redirected).toBeTruthy()
+        expect(redirected).toBeTruthy();
     });
 });
