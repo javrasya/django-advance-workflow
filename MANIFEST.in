@@ -1,3 +1,4 @@
 include README.md
 recursive-include static *
 recursive-include daw/templates *
+recursive-include daw/static *

@@ -9,7 +9,7 @@ except IOError:
 
 setup(
     name='django-advance-workflow',
-    version='1.0.0',
+    version='1.0.1',
     description='Django complex workflow support.',
     author='Ahmet DAL',
     author_email='ceahmetdal@gmail.com',
