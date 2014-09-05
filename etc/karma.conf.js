@@ -14,8 +14,8 @@ module.exports = function (config) {
 
                    // list of files / patterns to load in the browser
                    files: [
-                       'static_collected/bower_components/jquery/dist/jquery.js',
-                       'static_collected/bower_components/underscore/underscore-min.js',
+                       'static/bower_components/jquery/dist/jquery.js',
+                       'static/bower_components/underscore/underscore-min.js',
                        'static_collected/scripts/daw*.js',
                        'test/spec/**/*.js',
                    ],
