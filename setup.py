@@ -16,7 +16,7 @@ setup(
     url='https://bitbucket.org/ahmetdal/django-advance-workflow',
     keywords=["django", "workflow"],
     install_requires=[
-        "Django", "south"
+        "Django<1.7", "south"
     ],
     packages=['daw','daw.management','daw.management.commands','daw.migrations', 'daw.models', 'daw.models.managers', 'daw.models.querysets', 'daw.models.metaclasses','daw.service', 'daw.templatetags', 'daw.tests', 'daw.utils'],
     include_package_data=True,
