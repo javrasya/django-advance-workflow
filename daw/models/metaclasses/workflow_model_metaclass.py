@@ -34,8 +34,8 @@ def _pre_save(*args, **kwargs):  # signal, sender, instance):
         if isinstance(f, StateField):
             fields.append(f)
     if model.objects.filter(pk=instance.pk).count() == 0:
-        initial_state = StateService.get_init_state(ContentType.objects.get_for_model(instance))
         for f in fields:
+            initial_state = StateService.get_init_state(ContentType.objects.get_for_model(instance))
             f.set_state(instance, initial_state)
 
 
