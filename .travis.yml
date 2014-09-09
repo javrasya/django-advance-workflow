@@ -4,7 +4,7 @@ before_install:
 install:
 - pip install -r requirements.txt
 after_success:
-- cd /etc
+- cd etc
 - bower install
 - grunt
  
