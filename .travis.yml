@@ -5,6 +5,7 @@ install:
 - pip install -r requirements.txt
 after_success:
 - cd etc
+- npm install
 - bower install
 - grunt
  
