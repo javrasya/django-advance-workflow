@@ -3,11 +3,11 @@ before_install:
 - npm install -g bower grunt-cli
 install:
 - pip install -r requirements.txt
-- python manage.py collectstatic --noinput
 after_success:
 - cd etc
 - npm install
 - bower install
+- python manage.py collectstatic --noinput
 - grunt
  
 python:

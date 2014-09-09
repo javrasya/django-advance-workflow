@@ -161,8 +161,8 @@ DawClient.commitTransitionProcess = function (contentTypeId, objectId, field, cu
 
 
 DawClient.redirectUri = function (uri) {
-    if (window.location = uri) {
-        window.location.reload()
+    if (window.location === uri) {
+        window.location.reload();
     } else {
         window.location = uri;
     }
