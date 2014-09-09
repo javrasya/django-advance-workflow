@@ -1,0 +1,12 @@
+language: python
+before_install:
+- cd etc/
+- npm install -g bower grunt-cli
+- bower install
+- grunt
+ 
+python:
+- "2.7"
+- "2.6"
+install: "pip install -r requirements.txt --use-mirrors"
+script: "python manage.py test daw.tests"
