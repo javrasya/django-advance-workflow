@@ -2,6 +2,8 @@ language: python
 before_install:
 - npm install -g bower grunt-cli
 install:
+- pwd
+- ls -l
 - pip install -r requirement.txt
 after_success:
 - cd /etc
