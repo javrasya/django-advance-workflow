@@ -11,6 +11,7 @@ class ExternalPermission(Permission):
     class Meta:
         verbose_name = _("Permission")
         verbose_name_plural = _("Permission")
+        app_label = 'daw'
         proxy = True
 
 

@@ -7,11 +7,11 @@ from daw.models.managers.externalcontenttypemanager import ExternalContentTypeMa
 __author__ = 'ahmetdal'
 
 
-
 class ExternalContentType(ContentType):
     class Meta:
         verbose_name = _("Content Type")
         verbose_name_plural = _("Content Types")
+        app_label = 'daw'
         proxy = True
 
 
