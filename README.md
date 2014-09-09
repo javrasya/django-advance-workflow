@@ -1,4 +1,5 @@
-# [Django Advance Workflow](https://bitbucket.org/ahmetdal/django-advance-workflow/)
+# [Django Advance Workflow](https://bitbucket.org/ahmetdal/django-advance-workflow/)[![Build Status](https://travis-ci.org/javrasya/django-advance-workflow.svg?branch=master)](https://travis-ci.org/javrasya/django-advance-workflow)
+
 Django Advance Workflow is a open source workflow mechanism can be embed into Python-DJango Project which support on the fly changes on every item in workflow instead of hardcoding states and transitions.
 
 Main goal of developing this framework is **to be able to edit any workflow item on the fly.** This means, all elements in workflow like states, transitions, user authorizations(permission), even specific objects worflow items are editable. To do this, all data about the workflow item is persisted into DB. **Hence, they can be change without touching the code.**
@@ -121,4 +122,3 @@ A json is sent to your custom callback function by DAW Javascript client. The js
 *	**objectId**:				Object id of the processed object.
 * 	**field**:				State field name of the processed object.
 *  **callback**:				Callback function which you must invoke at the end of your custom callback function.
-`
