@@ -7,7 +7,9 @@ after_success:
 - cd etc
 - npm install
 - bower install
+- cd ../
 - python manage.py collectstatic --noinput
+- cd etc
 - grunt
  
 python:
