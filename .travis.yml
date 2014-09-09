@@ -6,7 +6,7 @@ install:
 after_success:
 - cd /etc
 - bower install
-- grunt build
+- grunt
  
 python:
 - "2.7"
