@@ -3,7 +3,8 @@ before_install:
 - cd etc/
 - npm install -g bower grunt-cli
 - bower install
-- grunt
+after_success:
+- grunt build
  
 python:
 - "2.7"
