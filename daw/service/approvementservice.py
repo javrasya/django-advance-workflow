@@ -70,7 +70,8 @@ class ApprovementService:
             approvements = approvements.filter(approve_definition__order=min_order)
             if include_user:
                 user = middleware.get_user()
-                approvements = approvements.filter(Q(transactioner=user) | Q(approve_definition__permission__in=user.user_permissions.all()))
+                if not user.is_superuser:
+                    approvements = approvements.filter(Q(transactioner=user) | Q(approve_definition__permission__in=user.user_permissions.all()))
             if destination_state:
                 approvements = approvements.filter(approve_definition__transition__destination_state=destination_state)
 
